@@ -102,10 +102,10 @@ public abstract class LoginFrame extends JFrame implements DownloadListener {
 		for (String key : usernames.keySet()) {
 			if (key.equalsIgnoreCase(user)) {
 				UserPasswordInformation info = usernames.get(key);
-				return "http://cdn.spout.org/game/vanilla/skin/" + info.username + ".png";
+				return "http://nekocraft.com/mc/skin/" + info.username;
 			}
 		}
-		return "http://cdn.spout.org/game/vanilla/skin/" + user + ".png";
+		return "http://nekocraft.com/mc/skin/" + user;
 	}
 
 	public final String getUsername(String account) {
@@ -151,14 +151,14 @@ public abstract class LoginFrame extends JFrame implements DownloadListener {
 
 	public final void doLogin(String user) {
 		if (!hasSavedPassword(user)) {
-			throw new NullPointerException("There is no saved password for the user '" + user + "'");
+			throw new NullPointerException("没有保存 " + user + " 的密码！");
 		}
 		doLogin(user, getSavedPassword(user));
 	}
 
 	public final void doLogin(String user, String pass) {
 		if (pass == null) {
-			throw new NullPointerException("The password was null when logging in as user: '" + user + "'");
+			throw new NullPointerException("用户名 " + user + " 密码错误。");
 		}
 
 		Launcher.getGameUpdater().setDownloadListener(this);

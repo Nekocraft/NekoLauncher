@@ -90,7 +90,7 @@ public class SpoutcraftLauncher {
 
 		cleanup();
 
-		SplashScreen splash = new SplashScreen(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/org/spoutcraft/launcher/resources/splash.png")));
+		SplashScreen splash = new SplashScreen(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/org/spoutcraft/launcher/resources/nekowebsitelogo.png")));
 		splash.setVisible(true);
 
 		StartupParameters params = setupParameters(args);
@@ -203,11 +203,11 @@ public class SpoutcraftLauncher {
 
 		// May not be online, check
 		if (localHost.contains("127.0.0.1")) {
-			if (pingURL("http://www.google.com") / 100 != 2) {
-				JOptionPane.showMessageDialog(null, "You must have an internet connection to use Spoutcraft", "No Internet Connection!", JOptionPane.ERROR_MESSAGE);
+			if (pingURL("http://www.baidu.com") / 100 != 2) {
+				JOptionPane.showMessageDialog(null, "你必须连接到网络来开启Nekocraft！", "没有连接到网络！", JOptionPane.ERROR_MESSAGE);
 				System.exit(0);
-			} else if (pingURL("http://get.spout.org") / 100 != 2) {
-				JOptionPane.showMessageDialog(null, "The Spout webservers are currently not responding. Try again later.", "Spout Servers Down", JOptionPane.ERROR_MESSAGE);
+			} else if (pingURL("http://nekocraft.com") / 100 != 2) {
+				JOptionPane.showMessageDialog(null, "Nekocraft的服务器暂时不可用，稍后重试。", "服务器不可用", JOptionPane.ERROR_MESSAGE);
 				System.exit(0);
 			}
 		}

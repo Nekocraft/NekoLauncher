@@ -129,13 +129,13 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		}
 
 		// Setup username box
-		name = new LiteTextBox(this, "Username");
+		name = new LiteTextBox(this, "用户名");
 		name.setBounds(FRAME_WIDTH / 2 - 90, 339 + yShift, 180, 24);
 		name.setFont(minecraft);
 		name.addKeyListener(this);
 
 		// Setup password box
-		pass = new LitePasswordBox(this, "Password");
+		pass = new LitePasswordBox(this, "密码");
 		pass.setBounds(FRAME_WIDTH / 2 - 90, 368 + yShift, 180, 24);
 		pass.setFont(minecraft);
 		pass.addKeyListener(this);
@@ -162,7 +162,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		// Spoutcraft logo
 		JLabel logo = new JLabel();
 		logo.setBounds(FRAME_WIDTH / 2 - 200, 35, 400, 109);
-		setIcon(logo, "spoutcraft.png", logo.getWidth(), logo.getHeight());
+		setIcon(logo, "nekowebsitelogo.png", logo.getWidth(), logo.getHeight());
 
 		// Progress Bar
 		progressBar = new LiteProgressBar();
@@ -181,6 +181,15 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 			largerMinecraft = minecraft.deriveFont((float)18);
 		}
 
+		// Nekocraft Link
+		HyperlinkJLabel neko = new HyperlinkJLabel("Nekocraft", "http://nekocraft.com/");
+		neko.setToolTipText("Visit Nekocraft");
+		neko.setFont(largerMinecraft);
+		neko.setBounds(280, FRAME_HEIGHT - 27, 115, 20);
+		neko.setForeground(Color.WHITE);
+		neko.setOpaque(false);
+		neko.setTransparency(0.70F);
+		neko.setHoverTransparency(1F);
 		// Home Link
 		HyperlinkJLabel home = new HyperlinkJLabel("Home", "http://www.spout.org/");
 		home.setToolTipText("Visit our homepage");
@@ -376,11 +385,12 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		contentPane.add(pass);
 		contentPane.add(remember);
 		contentPane.add(login);
-		contentPane.add(steam);
-		contentPane.add(twitter);
-		contentPane.add(facebook);
-		contentPane.add(gplus);
-		contentPane.add(youtube);
+		//contentPane.add(steam);
+		//contentPane.add(twitter);
+		//contentPane.add(facebook);
+		//contentPane.add(gplus);
+		//contentPane.add(youtube);
+		contentPane.add(neko);
 		contentPane.add(home);
 		contentPane.add(forums);
 		contentPane.add(donate);
