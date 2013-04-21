@@ -74,12 +74,12 @@ public class LoginWorker extends SwingWorker<Object, Object> {
 	@Override
 	protected Object doInBackground() throws Exception {
 		loginFrame.getProgressBar().setVisible(true);
-		loginFrame.getProgressBar().setString("Connecting to minecraft.net...");
+		loginFrame.getProgressBar().setString("Connecting to nekocraft.com...");
 		try {
-			values = Utils.doLogin(user, pass, loginFrame.getProgressBar());
-			Launcher.getGameUpdater().setMinecraftUser(values[2].trim());
-			Launcher.getGameUpdater().setMinecraftSession(values[3].trim());
-			Launcher.getGameUpdater().setDownloadTicket(values[1].trim());
+			String session = Utils.doLogin(user, pass, loginFrame.getProgressBar());
+			Launcher.getGameUpdater().setMinecraftUser(user);
+			Launcher.getGameUpdater().setMinecraftSession(session);
+			Launcher.getGameUpdater().setDownloadTicket("1");
 			Launcher.getGameUpdater().setMinecraftPass(pass);
 
 			UserPasswordInformation info = null;

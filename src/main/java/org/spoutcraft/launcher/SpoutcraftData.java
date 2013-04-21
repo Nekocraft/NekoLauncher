@@ -110,11 +110,12 @@ public final class SpoutcraftData {
 	}
 
 	public String getMinecraftURL(String user) {
-		return "http://s3.amazonaws.com/MinecraftDownload/minecraft.jar?user=" + user + "&ticket=1";
+		//return "http://s3.amazonaws.com/MinecraftDownload/minecraft.jar?user=" + user + "&ticket=1";
+                  return "https://gitcafe.com/Nekocraft/Nekocraft-Spout/blob/spout/.minecraft/bin/minecraft.jar?raw=true";
 	}
 
 	public String getSpoutcraftURL() throws NoMirrorsAvailableException {
-		return RestAPI.getDownloadURL(build);
+		return "https://gitcafe.com/Nekocraft/Nekocraft-Spout/blob/spout/.minecraft/bin/spoutcraft.jar?raw=true";//RestAPI.getDownloadURL(build);
 	}
 
 	/**

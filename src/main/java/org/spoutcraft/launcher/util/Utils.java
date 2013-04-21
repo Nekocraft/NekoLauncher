@@ -85,32 +85,8 @@ public class Utils {
 	}
 
 	public static File getWorkingDirectory(String applicationName) {
-		if (getStartupParameters() != null && getStartupParameters().isPortable()) {
-			return new File("spoutcraft");
-		}
 
-		String userHome = System.getProperty("user.home", ".");
-		File workingDirectory;
-
-		OperatingSystem os = OperatingSystem.getOS();
-		if (os.isUnix()) {
-			workingDirectory = new File(userHome, '.' + applicationName + '/');
-		} else if (os.isWindows()) {
-			String applicationData = System.getenv("APPDATA");
-			if (applicationData != null) {
-				workingDirectory = new File(applicationData, "." + applicationName + '/');
-			} else {
-				workingDirectory = new File(userHome, '.' + applicationName + '/');
-			}
-		} else if (os.isMac()) {
-				workingDirectory = new File(userHome, "Library/Application Support/" + applicationName);
-		} else {
-				workingDirectory = new File(userHome, applicationName + '/');
-		}
-		if ((!workingDirectory.exists()) && (!workingDirectory.mkdirs())) {
-			throw new RuntimeException("The working directory could not be created: " + workingDirectory);
-		}
-		return workingDirectory;
+	return new File(applicationName);
 	}
 
 	public static String executePost(String targetURL, String urlParameters, JProgressBar progress) throws PermissionDeniedException {
@@ -222,27 +198,13 @@ public class Utils {
 		return count;
 	}
 
-	public static String[] doLogin(String user, String pass, JProgressBar progress) throws BadLoginException, MCNetworkException, OutdatedMCLauncherException, UnsupportedEncodingException, MinecraftUserNotPremiumException, PermissionDeniedException {
-		String parameters = "user=" + URLEncoder.encode(user, "UTF-8") + "&password=" + URLEncoder.encode(pass, "UTF-8") + "&version=" + 13;
-		String result = executePost("https://login.minecraft.net/", parameters, progress);
-		if (result == null) {
-			throw new MCNetworkException();
+	public static String doLogin(String user, String pass, JProgressBar progress) throws BadLoginException, MCNetworkException, OutdatedMCLauncherException, UnsupportedEncodingException, MinecraftUserNotPremiumException, PermissionDeniedException {
+		String parameters = "user=" + URLEncoder.encode(user, "UTF-8") + "&pass=" + URLEncoder.encode(pass, "UTF-8");
+		String result = executePost("https://nekocraft.com/mclogin/", parameters, progress);
+		if (result.equals("")) {
+			throw new BadLoginException();
 		}
-		if (!result.contains(":")) {
-			if (result.toLowerCase().contains("bad login")) {
-				throw new BadLoginException();
-			} else if (result.toLowerCase().contains("not premium")) {
-				throw new MinecraftUserNotPremiumException();
-			} else if (result.toLowerCase().contains("old version")) {
-				throw new OutdatedMCLauncherException();
-			} else if (result.toLowerCase().contains("migrated")) {
-				throw new AccountMigratedException();
-			} else {
-				System.err.print("Unknown login result: " + result);
-			}
-			throw new MCNetworkException();
-		}
-		return result.split(":");
+		return result;
 	}
 
 	public static boolean isEmpty(String str) {

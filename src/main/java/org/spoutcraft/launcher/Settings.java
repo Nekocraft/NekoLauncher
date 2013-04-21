@@ -114,11 +114,12 @@ public class Settings {
 	}
 
 	public static synchronized boolean isIgnoreMD5() {
-		return yaml.getBoolean("launcher.md5", false);
+		//return yaml.getBoolean("launcher.md5", false);
+                return true;
 	}
 
 	public static synchronized void setIgnoreMD5(boolean ignore) {
-		yaml.setProperty("launcher.md5", ignore);
+		//yaml.setProperty("launcher.md5", ignore);
 	}
 
 	public static synchronized String getProxyHost() {

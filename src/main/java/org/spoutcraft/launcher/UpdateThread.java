@@ -429,11 +429,12 @@ public class UpdateThread extends Thread {
 		final String lwjglMD5 = findMd5("lwjgl", null, minecraft.getLibraries());
 
 		// Processs minecraft.jar
-		logger.info("Minecraft Version: " + build.getMinecraft());
-		File mcCache = new File(Launcher.getGameUpdater().getBinCacheDir(), "minecraft_" + minecraft.getVersion() + ".jar");
-		if (!mcCache.exists() || (minecraftMD5 == null || !minecraftMD5.equals(MD5Utils.getMD5(mcCache)))) {
-			DownloadUtils.downloadFile("http://assets.minecraft.net/" + minecraft.getVersion().replaceAll("\\.", "_") + "/minecraft.jar", mcCache.getPath(), null, minecraftMD5, listener);
-		}
+//		logger.info("Minecraft Version: " + build.getMinecraft());
+		File mcCache = new File(Launcher.getGameUpdater().getBinCacheDir(), "minecraft_nekocraft.jar");
+//		if (!mcCache.exists() || (minecraftMD5 == null || !minecraftMD5.equals(MD5Utils.getMD5(mcCache)))) {
+			//DownloadUtils.downloadFile("http://assets.minecraft.net/" + minecraft.getVersion().replaceAll("\\.", "_") + "/minecraft.jar", mcCache.getPath(), null, minecraftMD5, listener);
+			DownloadUtils.downloadFile("https://gitcafe.com/Nekocraft/Nekocraft-Spout/blob/spout/.minecraft/bin/minecraft.jar?raw=true", mcCache.getPath(), null, minecraftMD5, listener);
+//		}
 		Utils.copy(mcCache, new File(Launcher.getGameUpdater().getBinDir(), "minecraft.jar"));
 
 		File nativesDir = new File(Launcher.getGameUpdater().getBinDir(), "natives");
