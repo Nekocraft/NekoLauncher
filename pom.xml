@@ -3,9 +3,9 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- Project information -->
-	<name>Spoutcraft Launcher</name>
-	<groupId>org.spoutcraft</groupId>
-	<artifactId>launcher</artifactId>
+	<name>NekoLauncher</name>
+	<groupId>org.spoutcraft.launcher</groupId>
+	<artifactId>NekoLauncher</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
 	<inceptionYear>2011</inceptionYear>
@@ -14,7 +14,7 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>${project.groupId}.${project.artifactId}.entrypoint.Start</mainClass>
+		<mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
 		<keystore.path>${project.basedir}/src/main/resources/keystore.jks</keystore.path>
 		<keystore.alias>spoutdev</keystore.alias>
 		<keystore.keypass>unleashtheflow</keystore.keypass>
@@ -146,6 +146,7 @@
 	<!-- Build configuration -->
 	<build>
 		<defaultGoal>clean install</defaultGoal>
+		<finalName>${project.name}</finalName>
 
 		<!-- Resources to include -->
 		<resources>
