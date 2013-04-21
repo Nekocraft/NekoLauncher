@@ -40,9 +40,9 @@
 
 	<!-- Source code access -->
 	<scm>
-		<developerConnection>scm:git:git@github.com:Legacy/SpoutcraftLauncher.git</developerConnection>
-		<connection>scm:git:git://github.com/Legacy/SpoutcraftLauncher.git</connection>
-		<url>https://github.com/Legacy/SpoutcraftLauncher</url>
+		<developerConnection>scm:git:git@github.com:Nekocraft/NekoLauncher.git</developerConnection>
+		<connection>scm:git:git://github.com/Nekocraft/NekoLauncher.git</connection>
+		<url>https://github.com/Nekocraft/NekoLauncher/</url>
 	</scm>
 
 	<!-- Build server -->

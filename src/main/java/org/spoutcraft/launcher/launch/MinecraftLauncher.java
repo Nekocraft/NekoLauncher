@@ -86,7 +86,7 @@ public class MinecraftLauncher {
 			String nativesPath = new File(mcBinFolder, "natives").getAbsolutePath();
 			System.setProperty("org.lwjgl.librarypath", nativesPath);
 			System.setProperty("net.java.games.input.librarypath", nativesPath);
-			System.setProperty("org.lwjgl.util.Debug", "true");
+			System.setProperty("org.lwjgl.util.Debug", "false");
 			System.setProperty("org.lwjgl.util.NoChecks", "false");
 
 			Class minecraftClass = classLoader.loadClass("net.minecraft.client.MinecraftApplet");

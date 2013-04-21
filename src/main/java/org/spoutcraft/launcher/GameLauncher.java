@@ -57,7 +57,7 @@ public class GameLauncher extends JFrame implements WindowListener {
 	public static final int SUCCESSFUL_LAUNCH = 1;
 
 	public GameLauncher() {
-		super("Spoutcraft");
+		super("Nekocraft");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setResizable(true);
 		this.addWindowListener(this);
@@ -93,7 +93,7 @@ public class GameLauncher extends JFrame implements WindowListener {
 			return;
 		}
 		if (applet == null) {
-			String message = "Failed to launch Spoutcraft!";
+			String message = "Nekocraft启动失败!";
 			this.setVisible(false);
 			JOptionPane.showMessageDialog(getParent(), message);
 			this.dispose();
@@ -107,7 +107,7 @@ public class GameLauncher extends JFrame implements WindowListener {
 		minecraft.addParameter("username", user);
 		minecraft.addParameter("sessionid", session);
 		minecraft.addParameter("downloadticket", downloadTicket);
-		minecraft.addParameter("spoutcraftlauncher", "true");
+		minecraft.addParameter("nekolauncher", "true");
 		minecraft.addParameter("portable", params.isPortable() + "");
 		if (params.getServer() != null) {
 			minecraft.addParameter("server", params.getServer());
@@ -174,7 +174,7 @@ public class GameLauncher extends JFrame implements WindowListener {
 				Thread.sleep(1000);
 			} catch (InterruptedException e1) { }
 		}
-		System.out.println("Exiting Spoutcraft");
+		System.out.println("Exiting Nekocraft");
 		this.dispose();
 		System.exit(0);
 	}

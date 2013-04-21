@@ -1,8 +1,6 @@
-Spoutcraft Launcher
+NekoLauncher
 ===================
-Spoutcraft Launcher is the custom launcher for installing and updating Spoutcraft with built-in byte patching for easy upgrading/downgrading of Minecraft versions.
-
-Like the project? Feel free to [donate] to help continue development!
+NekoLauncher is a custom launcher for installing and updating , it forked form Spoutcraft.
 
 ## What is Spoutcraft?
 Spoutcraft is a modified version of the Minecraft client, which you can access through the the Spoutcraft Launcher, and when connecting to a server with SpoutPlugin, it allows you to unlock most of the features of SpoutPlugin, such as custom blocks, items, texture packs, etc. It also gives several speed improvements, a minimap, an overview map, etc.

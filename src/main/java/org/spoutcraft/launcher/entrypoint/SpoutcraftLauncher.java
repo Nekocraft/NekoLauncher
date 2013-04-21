@@ -281,7 +281,7 @@ public class SpoutcraftLauncher {
 		OperatingSystem os = OperatingSystem.getOS();
 		if (os.isMac()) {
 			System.setProperty("apple.laf.useScreenMenuBar", "true");
-			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Spoutcraft");
+			System.setProperty("com.apple.mrj.application.apple.menu.about.name", "Nekocraft");
 		}
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());

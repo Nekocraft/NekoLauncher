@@ -33,8 +33,8 @@ import org.spoutcraft.launcher.launch.MinecraftLauncher;
 import org.spoutcraft.launcher.util.DownloadListener;
 
 public final class GameUpdater extends SpoutcraftDirectories {
-	public static final String baseURL = "http://s3.amazonaws.com/MinecraftDownload/";
-	public static final String spoutcraftMirrors = "http://get.spout.org/mirrors.yml";
+	public static final String baseURL = "http://get.nekocraft.com/minecraft/";
+	public static final String spoutcraftMirrors = "http://get.nekocraft.com/mirrors.yml";
 
 	// Minecraft Updating Arguments
 	private String user = "Player";

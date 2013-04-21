@@ -70,9 +70,9 @@ public class UpdateThread extends Thread {
 	private static final int PRELOAD_CLASSES = 100;
 
 	// Temporarily hardcoded
-	private static final String WINDOWS_NATIVES_URL = "http://s3.amazonaws.com/MinecraftDownload/windows_natives.jar";
-	private static final String OSX_NATIVES_URL = "http://s3.amazonaws.com/MinecraftDownload/macosx_natives.jar";
-	private static final String LINUX_NATIVES_URL = "http://s3.amazonaws.com/MinecraftDownload/linux_natives.jar";
+	private static final String WINDOWS_NATIVES_URL = "http://get.nekocraft.com/minecraft/windows_natives.jar";
+	private static final String OSX_NATIVES_URL = "http://get.nekocraft.com/minecraft/macosx_natives.jar";
+	private static final String LINUX_NATIVES_URL = "http://get.nekocraft.com/minecraft/linux_natives.jar";
 
 	private final Logger logger = Logger.getLogger("launcher");
 	private final AtomicBoolean waiting = new AtomicBoolean(false);
@@ -331,7 +331,7 @@ public class UpdateThread extends Thread {
 		int steps = libraries.size() + 2;
 		float progress = 100F;
 
-		stateChanged("Checking for Spoutcraft update...", progress / steps);
+		stateChanged("检查更新....", progress / steps);
 		progress += 100F;
 		File spoutcraft = new File(Launcher.getGameUpdater().getBinDir(), "spoutcraft.jar");
 		if (!spoutcraft.exists()) {
@@ -340,7 +340,7 @@ public class UpdateThread extends Thread {
 		if (!Settings.isIgnoreMD5() && !build.getMD5().equalsIgnoreCase(MD5Utils.getMD5(spoutcraft))) {
 			return true;
 		}
-		stateChanged("Checking for Spoutcraft update...", progress / steps);
+		stateChanged("检查更新....", progress / steps);
 		progress += 100F;
 		File libDir = new File(Launcher.getGameUpdater().getBinDir(), "lib");
 		libDir.mkdir();
@@ -350,7 +350,7 @@ public class UpdateThread extends Thread {
 			if (!libraryFile.exists()) {
 				return true;
 			}
-			stateChanged("Checking for Spoutcraft update...", progress / steps);
+			stateChanged("检查更新....", progress / steps);
 			progress += 100F;
 		}
 
