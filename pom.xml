@@ -4,7 +4,7 @@
 
 	<!-- Project information -->
 	<name>NekoLauncher</name>
-	<groupId>org.spoutcraft.launcher</groupId>
+	<groupId>com.nekocraft.launcher</groupId>
 	<artifactId>NekoLauncher</artifactId>
 	<version>3.0.0-SNAPSHOT</version>
 	<url>http://www.spout.org</url>
@@ -14,7 +14,7 @@
 	<!-- Build properties -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<mainClass>org.spoutcraft.launcher.entrypoint.Start</mainClass>
+		<mainClass>com.nekocraft.launcher.entrypoint.Start</mainClass>
 		<keystore.path>${project.basedir}/src/main/resources/keystore.jks</keystore.path>
 		<keystore.alias>spoutdev</keystore.alias>
 		<keystore.keypass>unleashtheflow</keystore.keypass>
@@ -157,7 +157,7 @@
 			<resource>
 				<filtering>false</filtering>
 				<directory>${project.basedir}/src/main/resources</directory>
-				<targetPath>org/spoutcraft/launcher/resources</targetPath>
+				<targetPath>com/nekocraft/launcher/resources</targetPath>
 				<includes>
 					<include>**/*</include>
 					<include>app/icon.icns</include>
@@ -171,7 +171,7 @@
 			</resource>
 			<resource>
 				<directory>${project.basedir}/src/main/resources</directory>
-				<targetPath>org/spoutcraft/launcher/resources</targetPath>
+				<targetPath>com/nekocraft/launcher/resources</targetPath>
 				<filtering>true</filtering>
 				<includes>
 					<include>version</include>
