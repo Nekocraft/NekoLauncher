@@ -57,14 +57,15 @@ public class BackgroundImageWorker extends SwingWorker<Object, Object> {
 	@Override
 	protected Object doInBackground() {
 		Download download = null;
-		try {
-			if (!backgroundImage.exists() || backgroundImage.length() < 10 * 1024 || System.currentTimeMillis() - backgroundImage.lastModified() > IMAGE_CYCLE_TIME) {
-				download = new Download("http://get.spout.org/splash/random.png", backgroundImage.getPath());
-				download.run();
-			}
-		} catch (Exception e) {
-			Logger.getLogger("launcher").log(Level.WARNING, "Failed to download background image", e);
-		}
+        //Nekocraft Done.
+//		try {
+//			if (!backgroundImage.exists() || backgroundImage.length() < 10 * 1024 || System.currentTimeMillis() - backgroundImage.lastModified() > IMAGE_CYCLE_TIME) {
+//				download = new Download("http://get.spout.org/splash/random.png", backgroundImage.getPath());
+//				download.run();
+//			}
+//		} catch (Exception e) {
+//			Logger.getLogger("launcher").log(Level.WARNING, "Failed to download background image", e);
+//		}
 		if (download != null && download.getResult() != Result.SUCCESS) {
 			InputStream image = ResourceUtils.getResourceAsStream("/org/spoutcraft/launcher/resources/background.png");
 			backgroundImage.delete();

@@ -70,9 +70,9 @@ public class UpdateThread extends Thread {
 	private static final int PRELOAD_CLASSES = 100;
 
 	// Temporarily hardcoded
-	private static final String WINDOWS_NATIVES_URL = "http://get.nekocraft.com/minecraft/windows_natives.jar";
-	private static final String OSX_NATIVES_URL = "http://get.nekocraft.com/minecraft/macosx_natives.jar";
-	private static final String LINUX_NATIVES_URL = "http://get.nekocraft.com/minecraft/linux_natives.jar";
+	private static final String WINDOWS_NATIVES_URL = "http://play.nekocraft.com/lib/lwjgl-2.8.4/native/windows_natives.jar";
+	private static final String OSX_NATIVES_URL = "http://play.nekocraft.com/lib/lwjgl-2.8.4/native/macosx_natives.jar";
+	private static final String LINUX_NATIVES_URL = "http://play.nekocraft.com/lib/lwjgl-2.8.4/native/linux_natives.jar";
 
 	private final Logger logger = Logger.getLogger("launcher");
 	private final AtomicBoolean waiting = new AtomicBoolean(false);

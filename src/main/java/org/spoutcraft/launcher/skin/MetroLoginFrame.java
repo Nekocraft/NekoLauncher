@@ -91,11 +91,6 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 	private static final String CLOSE_ACTION = "close";
 	private static final String MINIMIZE_ACTION = "minimize";
 	private static final String OPTIONS_ACTION = "options";
-    private static final String YOUTUBE_ACTION = "youtube";
-	private static final String STEAM_ACTION = "steam";
-	private static final String FACEBOOK_ACTION = "facebook";
-	private static final String TWITTER_ACTION = "twitter";
-	private static final String GPLUS_ACTION = "gplus";
 	private static final String LOGIN_ACTION = "login";
 	private static final String IMAGE_LOGIN_ACTION = "image_login";
 	private static final String REMOVE_USER = "remove";
@@ -141,7 +136,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		pass.addKeyListener(this);
 
 		// Setup remember checkbox
-		remember = new JCheckBox("Remember");
+		remember = new JCheckBox("记住密码");
 		remember.setBounds(FRAME_WIDTH / 2 - 90, 397 + yShift, 110, 24);
 		remember.setFont(minecraft);
 		remember.setOpaque(false);
@@ -152,17 +147,17 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		remember.addKeyListener(this);
 
 		// Setup login button
-		login = new LiteButton("Login");
+		login = new LiteButton("登录");
 		login.setBounds(FRAME_WIDTH / 2 + 5, 397 + yShift, 85, 24);
 		login.setFont(minecraft);
 		login.setActionCommand(LOGIN_ACTION);
 		login.addActionListener(this);
 		login.addKeyListener(this);
 
-		// Spoutcraft logo
+		// Nekocraft logo
 		JLabel logo = new JLabel();
 		logo.setBounds(FRAME_WIDTH / 2 - 200, 35, 400, 109);
-		setIcon(logo, "nekowebsitelogo.png", logo.getWidth(), logo.getHeight());
+		setIcon(logo, "nekocraft.png", logo.getWidth(), logo.getHeight());
 
 		// Progress Bar
 		progressBar = new LiteProgressBar();
@@ -191,7 +186,8 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		neko.setTransparency(0.70F);
 		neko.setHoverTransparency(1F);
 		// Home Link
-		HyperlinkJLabel home = new HyperlinkJLabel("Home", "http://www.spout.org/");
+        // Nekocraft
+		HyperlinkJLabel home = new HyperlinkJLabel("主页", "http://nekocraft.com/");
 		home.setToolTipText("Visit our homepage");
 		home.setFont(largerMinecraft);
 		home.setBounds(10, FRAME_HEIGHT - 27, 65, 20);
@@ -201,7 +197,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		home.setHoverTransparency(1F);
 
 		// Forums link
-		HyperlinkJLabel forums = new HyperlinkJLabel("Forums", "http://forums.spout.org/");
+		HyperlinkJLabel forums = new HyperlinkJLabel("论坛", "http://bbs.nekonazo.com/u53.1/");
 		forums.setToolTipText("Visit our community forums");
 		forums.setFont(largerMinecraft);
 		forums.setBounds(82, FRAME_HEIGHT - 27, 90, 20);
@@ -211,7 +207,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		forums.setHoverTransparency(1F);
 
 		// Donate link
-		HyperlinkJLabel donate = new HyperlinkJLabel("Donate", "http://spout.in/donate");
+		HyperlinkJLabel donate = new HyperlinkJLabel("捐助", "http://nekocraft.com/donate");
 		donate.setToolTipText("Donate to the project");
 		donate.setFont(largerMinecraft);
 		donate.setBounds(185, FRAME_HEIGHT - 27, 85, 20);
@@ -264,71 +260,6 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 		options.addActionListener(this);
 		options.setBorder(BorderFactory.createEmptyBorder());
 		options.setContentAreaFilled(false);
-
-		// Steam button
-		steam = new TransparentButton();
-		steam.setToolTipText("Game with us on Steam");
-		steam.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(steamIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		steam.setBounds(FRAME_WIDTH - 35, FRAME_HEIGHT - 32, 30, 30);
-		steam.setTransparency(0.70F);
-		steam.setHoverTransparency(1F);
-		steam.setActionCommand(STEAM_ACTION);
-		steam.addActionListener(this);
-		steam.setBorder(BorderFactory.createEmptyBorder());
-		steam.setContentAreaFilled(false);
-		steam.setRolloverIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(steamHoverIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-
-		// Facebook button
-		facebook = new TransparentButton();
-		facebook.setToolTipText("Like us on Facebook");
-		facebook.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(facebookIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		facebook.setBounds(FRAME_WIDTH - 70, FRAME_HEIGHT - 32, 30, 30);
-		facebook.setTransparency(0.70F);
-		facebook.setHoverTransparency(1F);
-		facebook.setActionCommand(FACEBOOK_ACTION);
-		facebook.addActionListener(this);
-		facebook.setBorder(BorderFactory.createEmptyBorder());
-		facebook.setContentAreaFilled(false);
-		facebook.setRolloverIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(facebookHoverIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-
-		// Twitter button
-		twitter = new TransparentButton();
-		twitter.setToolTipText("Follow us on Twitter");
-		twitter.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(twitterIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		twitter.setBounds(FRAME_WIDTH - 105, FRAME_HEIGHT - 32, 30, 30);
-		twitter.setTransparency(0.70F);
-		twitter.setHoverTransparency(1F);
-		twitter.setActionCommand(TWITTER_ACTION);
-		twitter.addActionListener(this);
-		twitter.setBorder(BorderFactory.createEmptyBorder());
-		twitter.setContentAreaFilled(false);
-		twitter.setRolloverIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(twitterHoverIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-
-		// Google+ button
-		gplus = new TransparentButton();
-		gplus.setToolTipText("Follow us on Google+");
-		gplus.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(gplusIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		gplus.setBounds(FRAME_WIDTH - 140, FRAME_HEIGHT - 32, 30, 30);
-		gplus.setTransparency(0.70F);
-		gplus.setHoverTransparency(1F);
-		gplus.setActionCommand(GPLUS_ACTION);
-		gplus.addActionListener(this);
-		gplus.setBorder(BorderFactory.createEmptyBorder());
-		gplus.setContentAreaFilled(false);
-		gplus.setRolloverIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(gplusHoverIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-
-		// YouTube button
-		youtube = new TransparentButton();
-		youtube.setToolTipText("Subscribe to our videos");
-		youtube.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(youtubeIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
-		youtube.setBounds(FRAME_WIDTH - 175, FRAME_HEIGHT - 32, 30, 30);
-		youtube.setTransparency(0.70F);
-		youtube.setHoverTransparency(1F);
-		youtube.setActionCommand(YOUTUBE_ACTION);
-		youtube.addActionListener(this);
-		youtube.setBorder(BorderFactory.createEmptyBorder());
-		youtube.setContentAreaFilled(false);
-		youtube.setRolloverIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(youtubeHoverIcon).getScaledInstance(30, 30, Image.SCALE_SMOOTH)));
 
 		// Rectangle
 		JLabel bottomRectangle = new JLabel();
@@ -552,41 +483,6 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 				removeButtons.remove(c);
 				writeUsernameList();
 			}
-		} else if (action.equals(STEAM_ACTION)) {
-			try {
-				steamURL = new URI("http://spout.in/steam");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			Compatibility.browse(steamURL);
-		} else if (action.equals(FACEBOOK_ACTION)) {
-			try {
-				facebookURL = new URI("http://spout.in/facebook");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			Compatibility.browse(facebookURL);
-		} else if (action.equals(TWITTER_ACTION)) {
-			try {
-				twitterURL = new URI("http://spout.in/twitter");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			Compatibility.browse(twitterURL);
-		}  else if (action.equals(GPLUS_ACTION)) {
-			try {
-				gplusURL = new URI("http://spout.in/gplus");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			Compatibility.browse(gplusURL);
-		}  else if (action.equals(YOUTUBE_ACTION)) {
-			try {
-				youtubeURL = new URI("http://spout.in/youtube");
-			} catch (URISyntaxException e) {
-				e.printStackTrace();
-			}
-			Compatibility.browse(youtubeURL);
 		}
 	}
 

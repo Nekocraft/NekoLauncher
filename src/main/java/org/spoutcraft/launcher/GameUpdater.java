@@ -33,8 +33,7 @@ import org.spoutcraft.launcher.launch.MinecraftLauncher;
 import org.spoutcraft.launcher.util.DownloadListener;
 
 public final class GameUpdater extends SpoutcraftDirectories {
-	public static final String baseURL = "http://get.nekocraft.com/minecraft/";
-	public static final String spoutcraftMirrors = "http://get.nekocraft.com/mirrors.yml";
+	public static final String baseURL = "http://play.nekocraft.com/lib/lwjgl-2.8.4/jar/";
 
 	// Minecraft Updating Arguments
 	private String user = "Player";

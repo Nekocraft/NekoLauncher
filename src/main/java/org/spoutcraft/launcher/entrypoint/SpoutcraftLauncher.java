@@ -90,7 +90,7 @@ public class SpoutcraftLauncher {
 
 		cleanup();
 
-		SplashScreen splash = new SplashScreen(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/org/spoutcraft/launcher/resources/nekowebsitelogo.png")));
+		SplashScreen splash = new SplashScreen(Toolkit.getDefaultToolkit().getImage(SplashScreen.class.getResource("/org/spoutcraft/launcher/resources/nekocraft.png")));
 		splash.setVisible(true);
 
 		StartupParameters params = setupParameters(args);
