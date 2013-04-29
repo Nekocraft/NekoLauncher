@@ -45,7 +45,7 @@ public class RestAPI {
     private static DownpourCache cache = new DownpourCache(new File(new File(Utils.getWorkingDirectory(), "cache"), ".rest-cache"));
 
     // Public
-    public static final String REST_URL = "http://nekocraft.com/api/";
+    public static final String REST_URL = "http://play.nekocraft.com/api/"; //Temp
     public static final String LIB_URL = "http://play.nekocraft.com/";
     public static final String VERSIONS_URL = REST_URL + "versions/" + PROJECT;
     public static final String INFO_URL = REST_URL + "info/";

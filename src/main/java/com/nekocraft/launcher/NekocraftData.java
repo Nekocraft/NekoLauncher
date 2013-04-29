@@ -86,6 +86,7 @@ public final class NekocraftData {
             selected = Versions.getStableMinecraftVersions().get(0);
         }
         for (Minecraft minecraft : minecraftVersions) {
+            System.out.println(minecraft.getVersion());
             if (selected.equalsIgnoreCase(minecraft.getVersion())) {
                 return minecraft;
             }

@@ -31,7 +31,7 @@ import com.nekocraft.launcher.yml.YAMLProcessor;
 import java.io.FileNotFoundException;
 
 public class Settings {
-    public static final String DEFAULT_MINECRAFT_VERSION = "Latest";
+    public static final String DEFAULT_MINECRAFT_VERSION = "Neko";
     private static YAMLProcessor yaml;
 
     public static synchronized void setYAML(YAMLProcessor settings) {
