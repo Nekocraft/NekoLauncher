@@ -49,7 +49,6 @@ public class RestAPI {
     public static final String LIB_URL = "http://play.nekocraft.com/";
     public static final String VERSIONS_URL = REST_URL + "versions/" + PROJECT;
     public static final String INFO_URL = REST_URL + "info/";
-    //public static final String LIBRARY_GET_URL = LIB_URL + "lib/";
     public static final String LIBRARY_GET_URL = "http://get.spout.org/api/library/";
     public static final String ALL_BUILDS_URL = REST_URL + "builds/" + PROJECT;
     public static final String LAUNCHER_BUILDS_URL = REST_URL + "builds/nekolauncher";

@@ -130,7 +130,6 @@ public class Utils {
             }
         } catch (Exception e) {
             String message = "Login failed...";
-            e.printStackTrace();
             progress.setString(message);
         } finally {
             if (connection != null) {
@@ -186,8 +185,6 @@ public class Utils {
     public static String doLogin(String user, String pass, JProgressBar progress) throws BadLoginException, MCNetworkException, OutdatedMCLauncherException, UnsupportedEncodingException, MinecraftUserNotPremiumException, PermissionDeniedException {
         String parameters = "user=" + URLEncoder.encode(user, "UTF-8") + "&pass=" + URLEncoder.encode(pass, "UTF-8");
         String result = executePost("https://nekocraft.com/api/login/", parameters, progress);
-        System.out.println(result);
-        System.out.println(parameters);
         if (result.equals("")) {
             throw new BadLoginException();
         }
