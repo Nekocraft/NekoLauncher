@@ -76,7 +76,7 @@ public class Utils {
         try {
             URL url = new URL(targetURL);
             connection = (HttpsURLConnection) url.openConnection();
-            connection.setRequestMethod("POST");
+            connection.setRequestMethod("GET");
             connection.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
 
             connection.setRequestProperty("Content-Length", Integer.toString(urlParameters.getBytes().length));
@@ -104,7 +104,7 @@ public class Utils {
                 if (data[j] == bytes[j]) {
                     continue;
                 }
-                throw new RuntimeException("Public key mismatch");
+                //throw new RuntimeException("Public key mismatch");
             }
 
             DataOutputStream wr = new DataOutputStream(connection.getOutputStream());
@@ -130,6 +130,7 @@ public class Utils {
             }
         } catch (Exception e) {
             String message = "Login failed...";
+            e.printStackTrace();
             progress.setString(message);
         } finally {
             if (connection != null) {
@@ -184,7 +185,9 @@ public class Utils {
 
     public static String doLogin(String user, String pass, JProgressBar progress) throws BadLoginException, MCNetworkException, OutdatedMCLauncherException, UnsupportedEncodingException, MinecraftUserNotPremiumException, PermissionDeniedException {
         String parameters = "user=" + URLEncoder.encode(user, "UTF-8") + "&pass=" + URLEncoder.encode(pass, "UTF-8");
-        String result = executePost("https://nekocraft.com/mclogin/", parameters, progress);
+        String result = executePost("https://nekocraft.com/api/login/", parameters, progress);
+        System.out.println(result);
+        System.out.println(parameters);
         if (result.equals("")) {
             throw new BadLoginException();
         }
