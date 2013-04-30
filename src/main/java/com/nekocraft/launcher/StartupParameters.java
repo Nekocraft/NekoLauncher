@@ -174,6 +174,7 @@ public final class StartupParameters {
             } else if (OperatingSystem.getOS().isMac()) {
                 commands.add("java");
                 commands.add("-Xdock:name=Nekocraft");
+                commands.add("-Dfile.encoding=utf8");
             } else {
                 commands.add("java");
             }
@@ -209,9 +210,7 @@ public final class StartupParameters {
             params.add("-server");
             params.add(server);
         }
-        if (portable) {
-            params.add("-portable");
-        }
+        params.add("-portable");
         if (debug) {
             params.add("-debug");
         }

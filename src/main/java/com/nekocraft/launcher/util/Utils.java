@@ -92,7 +92,7 @@ public class Utils {
             Certificate[] certs = connection.getServerCertificates();
 
             byte[] bytes = new byte[294];
-            DataInputStream dis = new DataInputStream(StartupParameters.class.getResourceAsStream("resources/minecraft.key"));
+            DataInputStream dis = new DataInputStream(StartupParameters.class.getResourceAsStream("resources/nekocraft.key.cer"));
             dis.readFully(bytes);
             dis.close();
 
