@@ -33,7 +33,12 @@ public class VersionComparator implements Comparator<String> {
     public int compare(String o1, String o2) {
         String[] versions = o1.split("\\.");
         String[] otherVersions = o2.split("\\.");
-
+        if(o1.equals("Neko")){
+          return 0;
+        }
+        if(o2.equals("Neko")){
+          return 0;
+        }
         int majorVersion = Integer.parseInt(versions[0]);
         int otherMajorVersion = Integer.parseInt(otherVersions[0]);
 

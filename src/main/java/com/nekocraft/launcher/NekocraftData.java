@@ -86,6 +86,7 @@ public final class NekocraftData {
             selected = Versions.getStableMinecraftVersions().get(0);
         }
         for (Minecraft minecraft : minecraftVersions) {
+            System.out.println(minecraft.getVersion());
             if (selected.equalsIgnoreCase(minecraft.getVersion())) {
                 return minecraft;
             }
@@ -99,11 +100,11 @@ public final class NekocraftData {
     }
 
     public String getMinecraftURL(String user) {
-        return "http://assets.minecraft.net/1_5_1/minecraft.jar";
+        return "http://play.nekocraft.com/Neko/minecraft.jar";
     }
 
     public String getSpoutcraftURL() throws NoMirrorsAvailableException {
-        return "https://gitcafe.com/Nekocraft/Nekocraft-Spout/raw/spout/.minecraft/bin/spoutcraft.jar";
+        return "http://play.nekocraft.com/Neko/Spoutcraft.jar";
     }
 
     /**

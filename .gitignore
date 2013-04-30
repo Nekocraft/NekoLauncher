@@ -4,6 +4,7 @@ bin
 lib
 out
 target
+.minecraft
 *.com
 *.class
 *.dll
