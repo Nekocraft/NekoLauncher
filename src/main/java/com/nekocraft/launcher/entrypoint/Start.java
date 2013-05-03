@@ -60,35 +60,36 @@ public class Start {
     }
 
     private static void launch(String[] args) throws Exception {
-        // Test for custom build (not official build)
+        // 调试时跳过自动更新
         if (NekocraftLauncher.getLauncherBuild().equals("0")) {
             NekocraftLauncher.main(args);
             return;
         }
 
-        // Test for exe relaunch
-        NekocraftLauncher.setupLogger().info("Args: " + Arrays.toString(args));
-        if (args.length > 0 && (args[0].equals("-Mover") || args[0].equals("-Launcher"))) {
-            String[] argsCopy = new String[args.length - 1];
-            for (int i = 1; i < args.length; i++) {
-                argsCopy[i - 1] = args[i];
+        // 对Windows下的exe进行自动更新的代理程序
+        if (args.length > 0){
+            NekocraftLauncher.setupLogger().info("Args: " + Arrays.toString(args));
+            if ((args[0].equals("-Mover") || args[0].equals("-Launcher"))) {
+                String[] argsCopy = new String[args.length - 1];
+                for (int i = 1; i < args.length; i++) {
+                    argsCopy[i - 1] = args[i];
+                }
+                if (args[0].equals("-Mover")) {
+                    Mover.main(argsCopy, true);
+                } else {
+                    NekocraftLauncher.main(argsCopy);
+                }
+                return;
             }
-            if (args[0].equals("-Mover")) {
-                Mover.main(argsCopy, true);
-            } else {
-                NekocraftLauncher.main(argsCopy);
-            }
-            return;
         }
-
-        migrateFolders();
-
+        // 初始化配置
         YAMLProcessor settings = NekocraftLauncher.setupSettings();
         if (settings == null) {
             throw new NullPointerException("The YAMLProcessor object was null for settings.");
         }
         Settings.setYAML(settings);
 
+        // 启动器自动更新
         int version = Integer.parseInt(NekocraftLauncher.getLauncherBuild());
         int latest = getLatestLauncherBuild();
         if (version < latest) {
@@ -161,22 +162,6 @@ public class Start {
             throw new RestfulAPIException("Error accessing URL [" + url + "]", e);
         } finally {
             IOUtils.closeQuietly(stream);
-        }
-    }
-
-    private static void migrateFolders() {
-        File brokenSpoutcraftDir = Utils.getWorkingDirectory("Nekocraft");
-        if (brokenSpoutcraftDir.exists()) {
-            File correctSpoutcraftDir = Utils.getWorkingDirectory();
-            OperatingSystem os = OperatingSystem.getOS();
-            if (os.isUnix() || os.isMac()) {
-                try {
-                    FileUtils.copyDirectory(brokenSpoutcraftDir, correctSpoutcraftDir);
-                    FileUtils.deleteDirectory(brokenSpoutcraftDir);
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
         }
     }
 

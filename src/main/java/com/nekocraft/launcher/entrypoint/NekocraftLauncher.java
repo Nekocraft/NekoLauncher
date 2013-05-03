@@ -312,7 +312,7 @@ public class NekocraftLauncher {
 
     protected static YAMLProcessor setupSettings() {
         File file = new File(Utils.getWorkingDirectory(), "config" + File.separator + "settings.yml");
-
+        // 初始化默认配置文件
         if (!file.exists()) {
             try {
                 InputStream input = NekocraftLauncher.class.getResource("resources/settings.yml").openStream();

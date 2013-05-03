@@ -38,7 +38,7 @@ public interface Downloadable {
     /**
      * Downloads the file from the maven repository and saves it in the given location
      *
-     * @param file     location to save the file
+     * @param location     location to save the file
      * @param listener download listener, optional
      */
     public void download(File location, DownloadListener listener) throws DownloadException;

@@ -55,7 +55,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
     private static final URL closeIcon = LoginFrame.class.getResource("/com/nekocraft/launcher/resources/close.png");
     private static final URL minimizeIcon = LoginFrame.class.getResource("/com/nekocraft/launcher/resources/minimize.png");
     private static final URL optionsIcon = LoginFrame.class.getResource("/com/nekocraft/launcher/resources/options.png");
-    private static final int FRAME_WIDTH = 880, FRAME_HEIGHT = 520;
+    private static final int FRAME_WIDTH = 760, FRAME_HEIGHT = 468;
     private static int mouseX = 0, mouseY = 0;
     private static final String CLOSE_ACTION = "close";
     private static final String MINIMIZE_ACTION = "minimize";
@@ -93,19 +93,19 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         // Setup username box
         name = new LiteTextBox(this, "用户名");
         Font base = name.getFont().deriveFont(12f);
-        name.setBounds(FRAME_WIDTH / 2 - 90, 339 + yShift, 180, 24);
+        name.setBounds(FRAME_WIDTH / 2 - 90, 299 + yShift, 180, 24);
         name.setFont(base);
         name.addKeyListener(this);
 
         // Setup password box
         pass = new LitePasswordBox(this, "密码");
-        pass.setBounds(FRAME_WIDTH / 2 - 90, 368 + yShift, 180, 24);
+        pass.setBounds(FRAME_WIDTH / 2 - 90, 328 + yShift, 180, 24);
         pass.setFont(base);
         pass.addKeyListener(this);
 
         // Setup remember checkbox
         remember = new JCheckBox("记住密码");
-        remember.setBounds(FRAME_WIDTH / 2 - 90, 397 + yShift, 110, 24);
+        remember.setBounds(FRAME_WIDTH / 2 - 90, 357 + yShift, 110, 24);
         remember.setFont(base);
         remember.setOpaque(false);
         remember.setBorderPainted(false);
@@ -116,7 +116,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 
         // Setup login button
         login = new LiteButton("登录");
-        login.setBounds(FRAME_WIDTH / 2 + 5, 397 + yShift, 85, 24);
+        login.setBounds(FRAME_WIDTH / 2 + 5, 357 + yShift, 85, 24);
         login.setFont(base.deriveFont(13f));
         login.setActionCommand(LOGIN_ACTION);
         login.addActionListener(this);
@@ -125,14 +125,14 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         Font big = base.deriveFont(16f);
         // Nekocraft logo
         JLabel logo = new JLabel();
-        logo.setBounds(FRAME_WIDTH / 2 - 200, 35, 400, 109);
+        logo.setBounds(FRAME_WIDTH / 2 - 200, 35, 400, 130);
         logo.setFont(big);
         setIcon(logo, "nekocraft.png", logo.getWidth(), logo.getHeight());
 
         // Progress Bar
         progressBar = new LiteProgressBar();
         progressBar.setBounds(FRAME_WIDTH / 2 - 192, pass.getY() + 90, 384, 23);
-        progressBar.setFont(big);
+        progressBar.setFont(base);
         progressBar.setVisible(false);
         progressBar.setStringPainted(true);
         progressBar.setOpaque(true);
@@ -141,7 +141,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 
         // 主页
         HyperlinkJLabel home = new HyperlinkJLabel("主页", "http://nekocraft.com/");
-        home.setToolTipText("Visit our homepage");
+        home.setToolTipText("服务器主页");
         home.setFont(big);
         home.setBounds(10, FRAME_HEIGHT - 27, 65, 20);
         home.setForeground(Color.WHITE);
@@ -151,7 +151,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
 
         // Forums link
         HyperlinkJLabel forums = new HyperlinkJLabel("论坛", "http://bbs.nekonazo.com/u53.1/");
-        forums.setToolTipText("Visit our community forums");
+        forums.setToolTipText("服务器论坛");
         forums.setFont(big);
         forums.setBounds(82, FRAME_HEIGHT - 27, 90, 20);
         forums.setForeground(Color.WHITE);
@@ -160,10 +160,10 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         forums.setHoverTransparency(1F);
 
         // Donate link
-        HyperlinkJLabel donate = new HyperlinkJLabel("捐助", "http://nekocraft.com/donate");
-        donate.setToolTipText("Donate to the project");
+        HyperlinkJLabel donate = new HyperlinkJLabel("捐助", "http://nekocraft.com/donate/");
+        donate.setToolTipText("欢迎支持服务器的发展");
         donate.setFont(big);
-        donate.setBounds(185, FRAME_HEIGHT - 27, 85, 20);
+        donate.setBounds(154, FRAME_HEIGHT - 27, 85, 20);
         donate.setForeground(Color.WHITE);
         donate.setOpaque(false);
         donate.setTransparency(0.70F);
@@ -200,19 +200,19 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         minimize.setContentAreaFilled(false);
 
         // Options Button
-        options = new TransparentButton();
-        options.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(optionsIcon)));
-        if (OperatingSystem.getOS().isMac()) {
-            options.setBounds(74, 0, 37, 20);
-        } else {
-            options.setBounds(FRAME_WIDTH - 111, 0, 37, 20);
-        }
-        options.setTransparency(0.70F);
-        options.setHoverTransparency(1F);
-        options.setActionCommand(OPTIONS_ACTION);
-        options.addActionListener(this);
-        options.setBorder(BorderFactory.createEmptyBorder());
-        options.setContentAreaFilled(false);
+        // options = new TransparentButton();
+        // options.setIcon(new ImageIcon(Toolkit.getDefaultToolkit().getImage(optionsIcon)));
+        // if (OperatingSystem.getOS().isMac()) {
+        //     options.setBounds(74, 0, 37, 20);
+        // } else {
+        //     options.setBounds(FRAME_WIDTH - 111, 0, 37, 20);
+        // }
+        // options.setTransparency(0.70F);
+        // options.setHoverTransparency(1F);
+        // options.setActionCommand(OPTIONS_ACTION);
+        // options.addActionListener(this);
+        // options.setBorder(BorderFactory.createEmptyBorder());
+        // options.setContentAreaFilled(false);
 
         // Rectangle
         JLabel bottomRectangle = new JLabel();
@@ -273,7 +273,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         contentPane.add(forums);
         contentPane.add(donate);
         contentPane.add(logo);
-        contentPane.add(options);
+        // contentPane.add(options);
         contentPane.add(close);
         contentPane.add(minimize);
         contentPane.add(progressBar);
@@ -310,8 +310,8 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
         return new CallbackTask(new Callable<BufferedImage>() {
             public BufferedImage call() throws Exception {
                 try {
-                    System.out.println("Attempting to grab avatar helm for " + user + "...");
-                    InputStream stream = RestAPI.getCache().get(new URL("http://skins.technicpack.net/helm/" + user + "/100"), new DownloadURLConnector() {
+                    System.out.println("获取 " + user + "的头像");
+                    InputStream stream = RestAPI.getCache().get(new URL("http://nekocraft.com/api/head/" + user ), new DownloadURLConnector() {
                         @Override
                         public void setHeaders(URLConnection conn) {
                             conn.setDoInput(true);
@@ -327,7 +327,7 @@ public class MetroLoginFrame extends LoginFrame implements ActionListener, KeyLi
                     }, true);
                     BufferedImage image = ImageIO.read(stream);
                     if (image == null) {
-                        throw new NullPointerException("No avatar helm downloaded!");
+                        throw new NullPointerException("找不到头像!");
                     }
                     System.out.println("Completed avatar helm request!");
                     return image;

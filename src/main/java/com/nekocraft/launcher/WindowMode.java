@@ -29,9 +29,9 @@ package com.nekocraft.launcher;
 import java.awt.*;
 
 public enum WindowMode {
-    WINDOWED("Windowed", 0),
-    FULL_SCREEN("Full Screen", 1),
-    MAXIMIZED("Maximized", 2);
+    WINDOWED("窗口化", 0),
+    FULL_SCREEN("全屏", 1),
+    MAXIMIZED("最小化", 2);
 
     private static final int DEFAULT_WINDOW_HEIGHT = 540;
     private static final int DEFAULT_WINDOW_WIDTH = 900;
