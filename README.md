@@ -1,0 +1,4 @@
+NekoLauncher
+============
+
+Nekocraft Standalone Launcher
