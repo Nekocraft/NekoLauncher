@@ -4,7 +4,7 @@
     <groupId>com.nekocraft.launcher</groupId>
     <artifactId>NekoLauncher</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
     <name>NekoLauncher</name>
     <url>http://gopenrmx.gjz010.tk</url>
     <build>
