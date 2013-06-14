@@ -1,10 +1,10 @@
 package com.nekocraft.launcher;
 import java.awt.*;  
-import java.awt.event.*;  
-import java.io.ByteArrayInputStream;
+import java.awt.event.*;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
-import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;  
 public class LoginFrame extends JFrame{
     public LoginFrame(){
@@ -22,13 +22,28 @@ public class LoginFrame extends JFrame{
             NekoLauncher.handleException(e);
         }
         ////////文本框逻辑
-        LabelTextField user=new LabelTextField("用户名");
-        LabelTextField pass=new LabelTextField("密　码",true);
+        final LabelTextField user=new LabelTextField("用户名");
+        final LabelTextField pass=new LabelTextField("密　码",true);
         user.setBounds(100, 280, 200, 25);
-        pass.setBounds(100,370,200,25);
+        pass.setBounds(100,330,200,25);
         this.getContentPane().add(user);
         this.getContentPane().add(pass);
         ////////按钮逻辑
+        JButton login=new JButton("登录");
+        login.setBounds(160,400,80,30);
+        this.getContentPane().add(login);
+        login.addActionListener(new ActionListener(){
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                LoginThread lt=new LoginThread();
+                lt.setUser(user.getTextContent());
+                lt.setPassword(pass.getTextContent());
+                lt.start();
+                System.out.println(lt.getSession());
+            }
+            
+        });
     }
     private void initPic() throws IOException{
         JPanel panel=new JPanel(){
