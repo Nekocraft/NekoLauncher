@@ -8,6 +8,7 @@ import javax.imageio.stream.ImageInputStream;
 import javax.swing.*;  
 public class LoginFrame extends JFrame{
     public LoginFrame(){
+        ////////窗体逻辑
         this.setSize(new Dimension(400, 500));  
         this.setTitle("Nekocraft Launcher");  
         setResizable(false); 
@@ -20,12 +21,14 @@ public class LoginFrame extends JFrame{
         catch (Exception e){
             NekoLauncher.handleException(e);
         }
+        ////////文本框逻辑
         LabelTextField user=new LabelTextField("用户名");
         LabelTextField pass=new LabelTextField("密　码",true);
         user.setBounds(100, 280, 200, 25);
         pass.setBounds(100,370,200,25);
         this.getContentPane().add(user);
         this.getContentPane().add(pass);
+        ////////按钮逻辑
     }
     private void initPic() throws IOException{
         JPanel panel=new JPanel(){
@@ -44,10 +47,7 @@ public class LoginFrame extends JFrame{
                 panel.setLayout(null);
         this.setContentPane(panel);
         JLabel logo=new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("nekocraft.png"))));
-        //JLabel bk=new JLabel(new ImageIcon());
         logo.setBounds(0,0,400,130);
-        //bk.setBounds(0,0,400,500);
         this.getContentPane().add(logo);
-        //this.getContentPane().add(bk);
     }
 }
