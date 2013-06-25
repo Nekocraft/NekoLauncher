@@ -76,6 +76,50 @@ public class DownloadThread extends Thread{
             }
             mc.addJar(jar);
         }
+        files=doc.getElementsByTagName("native");
+        for(int i=0;i<files.getLength();i++){
+          Library jar=new Library();
+            for(int j=0;j<files.item(i).getAttributes().getLength();j++){
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("name")){
+                    jar.setName(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("md5")){
+                    jar.setMd5(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("os")){
+                    jar.setOs(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+            }
+            mc.addNative(jar);
+        }
+        files=doc.getElementsByTagName("lib");
+        for(int i=0;i<files.getLength();i++){
+          Library jar=new Library();
+            for(int j=0;j<files.item(i).getAttributes().getLength();j++){
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("name")){
+                    jar.setName(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("md5")){
+                    jar.setMd5(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+            }
+            mc.addLib(jar);
+        }
+        files=doc.getElementsByTagName("mod");
+        for(int i=0;i<files.getLength();i++){
+          Library jar=new Library();
+            for(int j=0;j<files.item(i).getAttributes().getLength();j++){
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("name")){
+                    jar.setName(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("md5")){
+                    jar.setMd5(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+            }
+            mc.addMod(jar);
+        }
+        
+        
         System.out.println(mc.toString());
     }
     public static void main(String args[]){
