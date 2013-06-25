@@ -20,7 +20,7 @@ public class HTMLFetcher {
             }
             connection.disconnect();
         } catch (Exception e) {
-            e.printStackTrace();
+            NekoLauncher.handleException(e);
         }
         return pageHTML.toString();
     }    

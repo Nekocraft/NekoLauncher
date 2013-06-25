@@ -4,7 +4,7 @@
  */
 package com.nekocraft.launcher;
 
-import java.util.List;
+import java.util.*;
 
 /**
  *
@@ -16,9 +16,13 @@ public class MinecraftStructure {  ///For Notch's Structure
     private List<Library> jars;
     private List<Library> natives;
     private List<Library> libs;
-    private List<Library> textures;
     private List<Library> mods;
-
+    public MinecraftStructure(){
+        jars=new ArrayList<Library>();
+        natives=new ArrayList<Library>();
+        libs=new ArrayList<Library>();
+        mods=new ArrayList<Library>();
+    }
     /**
      * @return the jars
      */
@@ -41,13 +45,6 @@ public class MinecraftStructure {  ///For Notch's Structure
     }
 
     /**
-     * @return the textures
-     */
-    public List<Library> getTextures() {
-        return textures;
-    }
-
-    /**
      * @return the mods
      */
     public List<Library> getMods() {
@@ -64,9 +61,6 @@ public class MinecraftStructure {  ///For Notch's Structure
     }
     public void addNative(Library l){
         natives.add(l);
-    }
-    public void addTexture(Library l){
-        textures.add(l);
     }
 
     /**
@@ -96,10 +90,36 @@ public class MinecraftStructure {  ///For Notch's Structure
     public void setScversion(int scversion) {
         this.scversion = scversion;
     }
+    public String toString(){
+        StringBuilder str=new StringBuilder("MinecraftStructure");
+        str.append("MC:");
+        str.append(mcversion);
+        str.append("SC:");
+        str.append(scversion);
+        str.append("Libraries:");
+        str.append("Jars:");
+        for(Library l:jars){
+            str.append(l.getName());
+        }
+        str.append("Natives:");
+        for(Library l:natives){
+            str.append(l.getName());
+        }
+        str.append("Libs:");
+        for(Library l:libs){
+            str.append(l.getName());
+        }
+        str.append("Mods:");
+        for(Library l:mods){
+            str.append(l.getName());
+        }
+        return str.toString();
+    }
 }
 class Library{
     private String name;
     private String md5;
+    private String os;
     /**
      * @return the name
      */
@@ -126,9 +146,6 @@ class Library{
     public void setMd5(String md5) {
         this.md5 = md5;
     }
-}
-class Native extends Library{
-    private String os;
 
     /**
      * @return the os

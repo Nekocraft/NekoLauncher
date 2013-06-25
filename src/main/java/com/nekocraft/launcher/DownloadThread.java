@@ -7,6 +7,8 @@ package com.nekocraft.launcher;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
 import java.io.*;
 import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
 /**
  *
@@ -59,7 +61,22 @@ public class DownloadThread extends Thread{
         DOMParser parser=new DOMParser();
         parser.parse(new InputSource(new StringReader(current)));
         Document doc=parser.getDocument();
-        System.out.println(doc.getElementsByTagName("mc").item(0).getTextContent());
+        mc.setMcversion(doc.getElementsByTagName("mc").item(0).getTextContent());
+        mc.setScversion(Integer.parseInt(doc.getElementsByTagName("scp").item(0).getTextContent()));
+        NodeList files=doc.getElementsByTagName("jar");
+        for(int i=0;i<files.getLength();i++){
+          Library jar=new Library();
+            for(int j=0;j<files.item(i).getAttributes().getLength();j++){
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("name")){
+                    jar.setName(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+                if(files.item(i).getAttributes().item(j).getNodeName().equals("md5")){
+                    jar.setMd5(files.item(i).getAttributes().item(j).getNodeValue());
+                }
+            }
+            mc.addJar(jar);
+        }
+        System.out.println(mc.toString());
     }
     public static void main(String args[]){
         DownloadThread dt=new DownloadThread();
