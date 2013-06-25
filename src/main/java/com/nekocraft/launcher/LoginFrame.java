@@ -7,6 +7,8 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;  
 public class LoginFrame extends JFrame{
+    public static JProgressBar bar=new JProgressBar();
+    public static JButton login=new JButton("登录");
     public LoginFrame(){
         ////////窗体逻辑
         this.setSize(new Dimension(400, 500));  
@@ -29,21 +31,25 @@ public class LoginFrame extends JFrame{
         this.getContentPane().add(user);
         this.getContentPane().add(pass);
         ////////按钮逻辑
-        JButton login=new JButton("登录");
         login.setBounds(160,400,80,30);
         this.getContentPane().add(login);
         login.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                login.setEnabled(false);
                 LoginThread lt=new LoginThread();
                 lt.setUser(user.getTextContent());
                 lt.setPassword(pass.getTextContent());
                 lt.start();
-                System.out.println(lt.getSession());
             }
             
         });
+        ////////进度条逻辑
+        bar.setBounds(100,230, 200, 25);
+        bar.setStringPainted(true);
+        bar.setString("请登录");
+        this.getContentPane().add(bar);
     }
     private void initPic() throws IOException{
         JPanel panel=new JPanel(){
@@ -52,7 +58,7 @@ public class LoginFrame extends JFrame{
                 // TODO Auto-generated method stub
                 super.paintComponent(g);
                 try{
-                g.drawImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("background.jpg")), 0, 0, this);
+                g.drawImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("background.png")), 0, 0, this);
                 }
                 catch (Exception e){
                     NekoLauncher.handleException(e);
