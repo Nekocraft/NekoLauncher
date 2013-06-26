@@ -39,7 +39,7 @@ public class LaunchThread extends URLClassLoader implements Runnable{
             JFrame frame=new JFrame();
             frame.setTitle("Nekocraft");
             frame.setSize(600, 300);
-            Applet mc=(Applet)c.newInstance();//yps62hq71w4z
+            Applet mc=(Applet)c.newInstance();
             MinecraftAppletEnglober stub=new MinecraftAppletEnglober();
             stub.setMinecraftApplet(mc);
             mc.setStub(stub);

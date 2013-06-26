@@ -226,8 +226,4 @@ public class DownloadThread extends Thread{
         
         System.out.println(mc.toString());
     }
-    public static void main(String args[]){
-        DownloadThread dt=new DownloadThread();
-        dt.run();
-    }
 }
