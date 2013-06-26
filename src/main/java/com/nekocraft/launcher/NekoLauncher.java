@@ -3,6 +3,7 @@ package com.nekocraft.launcher;
 import java.awt.Dimension;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,16 @@ public class NekoLauncher{
     public static LoginFrame mf;
     public static void main(String[] args){
         System.out.println("Woo Nekocraft Launcher!");
+        try{
+        initDir(StaticRes.MINECRAFT);
+        initDir(StaticRes.BIN);
+        initDir(StaticRes.LIB);
+        initDir(StaticRes.NATIVES);
+        initDir(StaticRes.MODS);
+        }
+        catch(Exception ex){
+            handleException(ex);
+        }
         mf=new LoginFrame();
         mf.setVisible(true);
     }
@@ -30,11 +41,11 @@ public class NekoLauncher{
         exFrame.setSize(new Dimension(400, 500)); 
         Random random = new Random();//我会说这里有个彩蛋吗
         int r=random.nextInt(10);
-        if(r==3){//我会说这里有个彩蛋吗
-            exFrame.setTitle("Threeeeeee!Something went wrong!");
+        if(r==2){
+            exFrame.setTitle("Yooooooooo!Something went wrong!");
         }
         else{
-            exFrame.setTitle("Yooooooooo!Something went wrong!");
+            exFrame.setTitle("Whoooooops!Something went wrong!");
         }
         exFrame.setResizable(false); 
         exFrame.setLocationRelativeTo(exFrame.getOwner());
@@ -47,19 +58,26 @@ public class NekoLauncher{
         text=new JTextArea();
         text.setLineWrap(true);
         text.setEditable(false);
-        if(r==3){//我会说这里有个彩蛋吗
-            text.append("Threeeeeee!Something happened to the Launcher!");
-        }else{
+        if(r==2){
             text.append("Yooooooooo!Something happened to the Launcher!\n");
+        }else{
+            text.append("Whoooooops!Something happened to the Launcher!\n");
         }
         text.append(e.toString()+"\n");
-        exFrame.getContentPane().add(text);
-        exFrame.setVisible(true);
         
         StackTraceElement[] ste=e.getStackTrace();
         int i;
         for(i=0;i<ste.length;i++){
+            text.append("	at ");
             text.append(ste[i].toString()+"\n");
-        }}
+        }
+        exFrame.getContentPane().add(text);
+        exFrame.setVisible(true);}
     }
+    private static void initDir(File dir) throws Exception{
+        if(!dir.exists()){
+            dir.mkdir();
+        }
+    }
+    
 }

@@ -46,7 +46,10 @@ public class LoginFrame extends JFrame{
             
         });
         ////////进度条逻辑
-        bar.setBounds(100,230, 200, 25);
+        bar.setBounds(50,230, 300, 25);
+        bar.setMinimum(0);
+        bar.setMaximum(100);
+        bar.setValue(0);
         bar.setStringPainted(true);
         bar.setString("请登录");
         this.getContentPane().add(bar);

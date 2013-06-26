@@ -91,27 +91,33 @@ public class MinecraftStructure {  ///For Notch's Structure
         this.scversion = scversion;
     }
     public String toString(){
-        StringBuilder str=new StringBuilder("MinecraftStructure");
+        StringBuilder str=new StringBuilder("MinecraftStructure\n");
         str.append("MC:");
         str.append(mcversion);
+        str.append("\n");
         str.append("SC:");
         str.append(scversion);
-        str.append("Libraries:");
-        str.append("Jars:");
+        str.append("\n");
+        str.append("Libraries:\n");
+        str.append("Jars:\n");
         for(Library l:jars){
             str.append(l.getName());
+            str.append("\n");
         }
-        str.append("Natives:");
+        str.append("Natives:\n");
         for(Library l:natives){
             str.append(l.getName());
+            str.append("\n");
         }
-        str.append("Libs:");
+        str.append("Libs:\n");
         for(Library l:libs){
             str.append(l.getName());
+            str.append("\n");
         }
-        str.append("Mods:");
+        str.append("Mods:\n");
         for(Library l:mods){
             str.append(l.getName());
+            str.append("\n");
         }
         return str.toString();
     }
