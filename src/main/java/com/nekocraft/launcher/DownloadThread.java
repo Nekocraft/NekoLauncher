@@ -30,6 +30,8 @@ public class DownloadThread extends Thread{
         } catch (Exception ex) {
             NekoLauncher.handleException(ex);
         }
+        LaunchThread launch=new LaunchThread(ClassLoader.getSystemClassLoader(),mc);
+        new Thread(launch).start();
     }
     private void fetchCurrentVersion(){ 
         LoginFrame.bar.setString("获取版本信息中...");
@@ -135,7 +137,6 @@ public class DownloadThread extends Thread{
             os.flush();
             os.close();
             is.close();
-            target.delete();
             
         }
         }

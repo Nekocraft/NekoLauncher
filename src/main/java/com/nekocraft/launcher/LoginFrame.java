@@ -38,7 +38,7 @@ public class LoginFrame extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 login.setEnabled(false);
-                LoginThread lt=new LoginThread();
+                lt=new LoginThread();
                 lt.setUser(user.getTextContent());
                 lt.setPassword(pass.getTextContent());
                 lt.start();
@@ -54,6 +54,7 @@ public class LoginFrame extends JFrame{
         bar.setString("请登录");
         this.getContentPane().add(bar);
     }
+    public static LoginThread lt;
     private void initPic() throws IOException{
         JPanel panel=new JPanel(){
                     @Override
