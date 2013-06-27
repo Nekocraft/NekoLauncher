@@ -18,8 +18,9 @@ import org.xml.sax.InputSource;
  * @author gjz010
  */
 public class DownloadThread extends Thread{
-    MinecraftStructure mc;
-    String current;
+    private MinecraftStructure mc;
+    private String current;
+    private int tries=0;
     @Override
     public void run(){
         fetchCurrentVersion();
@@ -30,8 +31,8 @@ public class DownloadThread extends Thread{
         } catch (Exception ex) {
             NekoLauncher.handleException(ex);
         }
-        LaunchThread launch=new LaunchThread(ClassLoader.getSystemClassLoader(),mc);
-        new Thread(launch).start();
+        LaunchThread launch=new LaunchThread(mc);
+        launch.start();
     }
     private void fetchCurrentVersion(){ 
         LoginFrame.bar.setString("获取版本信息中...");
@@ -74,22 +75,23 @@ public class DownloadThread extends Thread{
         String fmd5=FileDigest.getFileMD5(f);
         if(!lib.getMd5().equals(fmd5)){
             if(lib.getName().equals("minecraft.jar")){
-                downloadMinecraft(f);
+                downloadMinecraft(f,lib);
                 return;
             }
             if(lib.getName().equals("spoutcraft.jar")){
-                downloadSpoutcraft(f);
+                downloadSpoutcraft(f,lib);
                 return;
             }
             if(type==1){
                 downloadNative(lib,f);
                 return;
             }
-            downloadFile(StaticRes.INFO_REPO+lib.getName(),f);
+            downloadFile(StaticRes.INFO_REPO+lib.getName(),f,lib);
         }
         
     }
-    private void downloadFile(String url,File target) throws Exception{
+    private void downloadFile(String url,File target,Library lib) throws Exception{
+        if (tries<=4){
         int bytesum = 0;
         int byteread = 0;
         URL u=new URL(url);
@@ -105,23 +107,40 @@ public class DownloadThread extends Thread{
                 out.write(buffer, 0, byteread);
         }
         out.flush();
+        if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
+            tries=0;
+        }else{
+            tries+=1;
+            downloadFile(url,target,lib);
+        }
+        }
+        else{
+            throw new Exception(){
+                @Override
+                public String getMessage(){
+                    return "Download Failed because MD5 verify not passed!";
+                }
+            };
+        }
     }
-    private void downloadMinecraft(File target)throws Exception{
+    private void downloadMinecraft(File target,Library lib)throws Exception{
         //获取Minecraft地址
         String version=mc.getMcversion();
-        downloadFile(StaticRes.MC_REPO+version.replace(".", "_")+"/minecraft.jar",target);
+        downloadFile(StaticRes.MC_REPO+version.replace(".", "_")+"/minecraft.jar",target,lib);
+        removeMeta(target);
     }
-    private void downloadSpoutcraft(File target)throws Exception{
+    private void downloadSpoutcraft(File target,Library lib)throws Exception{
         String version=Integer.toString(mc.getScversion());
         StringBuilder u=new StringBuilder("http://ci.nekocraft.com/job/Spoutcraft/");
         u.append(version);
         u.append("/artifact/target/Spoutcraft.jar");
-        downloadFile(u.toString(),target);
+        downloadFile(u.toString(),target,lib);
+        removeMeta(target);
     }
     private void downloadNative(Library lib,File target)throws Exception{
         
         if(System.getProperty("os.name").toLowerCase().replace(" ", "").contains(lib.getOs())){
-        downloadFile(StaticRes.INFO_REPO+lib.getName(),target);
+        downloadFile(StaticRes.INFO_REPO+lib.getName(),target,lib);
         ZipFile zip=new ZipFile(target);
         ZipInputStream zis = new ZipInputStream(new FileInputStream(target), Charset.forName("UTF-8"));
         ZipEntry entry=null;
@@ -226,4 +245,8 @@ public class DownloadThread extends Thread{
         
         System.out.println(mc.toString());
     }
+    private void removeMeta(File f) throws Exception{ //META-INF什么的最讨厌了！
+        StaticRes.deleteZipEntry(f,new String[]{"META-INF/"});
+    }
+
 }

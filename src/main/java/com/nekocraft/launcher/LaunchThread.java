@@ -4,89 +4,68 @@
  */
 package com.nekocraft.launcher;
 
-import java.applet.*;
-import java.awt.Dimension;
-import java.io.*;
-import java.net.*;
+import java.io.File;
 import java.util.*;
-import java.util.jar.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JFrame;
 
 /**
  *
  * @author gjz010
  */
-public class LaunchThread extends URLClassLoader implements Runnable{
+public class LaunchThread extends Thread{
     private MinecraftStructure mc;
-    Set<Class<?>> classes = new LinkedHashSet<Class<?>>();
-    public LaunchThread(ClassLoader cl,MinecraftStructure mc){
-        super(new URL[0],cl);
+    private ProcessBuilder proc;
+    public LaunchThread(MinecraftStructure mc){
         this.mc=mc;
-        try{
-        loadLibraries();
-        }catch(Exception e){
-            NekoLauncher.handleException(e);
-        }
+        proc=new ProcessBuilder();
+        List<String> commandlist=new ArrayList<String>();
+        commandlist.addAll(Arrays.asList(buildCommand().split(" ")));
+        proc.command(commandlist);
+        setEnvironmentVariables();
     }
     @Override
     public void run() {
         try {
-            Class<?> c=this.loadClass("net.minecraft.client.MinecraftApplet");
-            //Applet mcapp=(Applet)c.newInstance();
-            JFrame frame=new JFrame();
-            frame.setTitle("Nekocraft");
-            frame.setSize(600, 300);
-            Applet mc=(Applet)c.newInstance();
-            MinecraftAppletEnglober stub=new MinecraftAppletEnglober();
-            stub.setMinecraftApplet(mc);
-            mc.setStub(stub);
-            frame.getContentPane().add(stub);
-            //stub.setMinecraftApplet(mcapp);
-            stub.addParameter("username", LoginFrame.lt.getUser());
-            stub.addParameter("sessionid", LoginFrame.lt.getSession());
-            stub.addParameter("portable", "true");
-            String nativesPath = new File(".minecraft/bin/natives/").getAbsolutePath();
-            System.setProperty("org.lwjgl.librarypath", nativesPath);
-            System.setProperty("net.java.games.input.librarypath", nativesPath);
-            System.setProperty("org.lwjgl.util.Debug", "false");
-            System.setProperty("org.lwjgl.util.NoChecks", "false");
-            stub.init();
-            stub.setSize(frame.getWidth(),frame.getHeight());
-            stub.start();
-            frame.setVisible(true);
+            //Thanks to Indeed!
+            Process p=proc.start();
         } catch (Exception ex) {
             NekoLauncher.handleException(ex);
         }
     }
-    private void loadLibraries() throws Exception {
-        //load libraries
-        for(Library l:mc.getLibs()){
-            loadLib(new File(".minecraft/bin/lib/"+l.getName()));
+    private void setEnvironmentVariables(){
+        Map<String,String> env=proc.environment();
+        proc.directory(StaticRes.BIN);
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("win")){
+            env.put("APPDATA", new File("./").getAbsolutePath());
         }
-        //load minecraft
-        loadLib(new File(".minecraft/bin/minecraft.jar"));
-        //load lwjgl
-        loadLib(new File(".minecraft/bin/lwjgl.jar"));
-        loadLib(new File(".minecraft/bin/lwjgl_util.jar"));
-        loadLib(new File(".minecraft/bin/jinput.jar"));
-        //load spoutcraft
-        loadLib(new File(".minecraft/bin/spoutcraft.jar"));
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("linux")){
+            env.put("HOME", new File("./").getAbsolutePath());
+        }
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("mac")){
+            env.put("HOME", new File("./").getAbsolutePath());
+        }
     }
-    private void loadLib(File lib) throws Exception{
-        this.addURL(lib.toURI().toURL());
-        //JarFile jar=new JarFile(lib);
-        //Enumeration<JarEntry> es =jar.entries();
-        //while(es.hasMoreElements()){
-        //    JarEntry entry=(JarEntry)es.nextElement();
-        //    String name=entry.getName();
-        //    if(name!=null && name.endsWith(".class")){
-         //       System.out.println(name.replace("/", ".").substring(0,name.length()-6));
-         //       Class<?> c = this.loadClass(name.replace("/", ".").substring(0,name.length()-6));
-         //       System.out.println(c);
-        //        classes.add(c);
-        //    }
-       // }
+    private String buildCommand(){
+        StringBuilder command=new StringBuilder("java -Xmx1G -cp ");
+        for(Library l:mc.getLibs()){
+            command.append("lib/");
+            command.append(l.getName());
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("win")){
+            command.append(";");
+        }
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("linux")|System.getProperty("os.name").replace(" ", "").toLowerCase().contains("mac")){
+            command.append(":");
+        }
+            command.append(";");
+        }
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("win")){
+            command.append("lwjgl.jar;lwjgl_util.jar;jinput.jar;spoutcraft.jar;minecraft.jar -Djava.library.path=natives/ net.minecraft.client.Minecraft ");
+        }
+        if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("linux")|System.getProperty("os.name").replace(" ", "").toLowerCase().contains("mac")){
+            command.append("lwjgl.jar:lwjgl_util.jar:jinput.jar:spoutcraft.jar:minecraft.jar -Djava.library.path=natives/ net.minecraft.client.Minecraft ");
+        }
+        command.append(LoginFrame.lt.getUser());
+        command.append(" ");
+        command.append(LoginFrame.lt.getSession());
+        return command.toString();
     }
 }
