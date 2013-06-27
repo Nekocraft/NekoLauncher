@@ -35,7 +35,6 @@ public class LaunchThread extends URLClassLoader implements Runnable{
         try {
             Class<?> c=this.loadClass("net.minecraft.client.MinecraftApplet");
             //Applet mcapp=(Applet)c.newInstance();
-            //yps62hq71w4z
             JFrame frame=new JFrame();
             frame.setTitle("Nekocraft");
             frame.setSize(600, 300);
