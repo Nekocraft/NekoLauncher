@@ -96,11 +96,12 @@ public class DownloadThread extends Thread{
         int byteread = 0;
         URL u=new URL(url);
         HttpURLConnection con=(HttpURLConnection)u.openConnection();
+        con.setConnectTimeout(10000);
         con.setRequestMethod("GET");
         LoginFrame.bar.setMaximum(con.getContentLength());
         InputStream in=con.getInputStream();
         FileOutputStream out=new FileOutputStream(target);
-        byte[] buffer = new byte[1204];
+        byte[] buffer = new byte[1024];
         while ((byteread = in.read(buffer)) != -1) {
                 bytesum += byteread;
                 LoginFrame.bar.setValue(bytesum);

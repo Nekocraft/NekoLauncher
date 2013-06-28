@@ -20,6 +20,9 @@ public class NekoLauncher{
         initDir(StaticRes.LIB);
         initDir(StaticRes.NATIVES);
         initDir(StaticRes.MODS);
+        if(!new File(".minecraft/options.txt").exists()){
+        FileUtil.createFile(new File(".minecraft/options.txt").getAbsolutePath(),"lang:zh_CN");
+        }
         }
         catch(Exception ex){
             handleException(ex);
