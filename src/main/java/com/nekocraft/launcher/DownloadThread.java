@@ -126,7 +126,7 @@ public class DownloadThread extends Thread{
     }
     private void downloadSpoutcraft(File target,Library lib)throws Exception{
         String version=Integer.toString(mc.getScversion());
-        StringBuilder u=new StringBuilder("http://ci.nekocraft.com/job/Spoutcraft/");
+        StringBuilder u=new StringBuilder(StaticRes.SCP_REPO);
         u.append(version);
         u.append("/artifact/target/Spoutcraft.jar");
         downloadFile(u.toString(),target,lib);
@@ -140,7 +140,7 @@ public class DownloadThread extends Thread{
         ZipEntry entry=null;
         while((entry=zis.getNextEntry())!=null){
             String filename=entry.getName();
-            File temp=new File(".minecraft/bin/natives/"+filename);
+            File temp=new File(StaticRes.NATIVES,filename);
             OutputStream os = new FileOutputStream(temp);
             InputStream is = zip.getInputStream(entry);
             int len = 0;
@@ -156,23 +156,17 @@ public class DownloadThread extends Thread{
     }
     private File getFile(Library lib,int type){
         //////type值:0-jar 1-native 2-lib 3-mod
-        StringBuilder path=new StringBuilder(".minecraft/");
         switch(type){
             case 0:
-                path.append("bin/");//jar
-                break;
+                return new File(StaticRes.BIN,lib.getName());//jar
             case 1:
-                path.append("bin/natives/");//native
-                break;
+                return new File(StaticRes.NATIVES,lib.getName());//native
             case 2:
-                path.append("bin/lib/");//lib
-                break;
+                return new File(StaticRes.LIB,lib.getName());//lib
             case 3:
-                path.append("mods/");//mod
-                break;
+                return new File(StaticRes.MODS,lib.getName());//mod
         }
-        path.append(lib.getName());
-        return new File(path.toString());
+        return new File(StaticRes.MINECRAFT,lib.getName());
     }
     private void parseXML() throws Exception{
         DOMParser parser=new DOMParser();
