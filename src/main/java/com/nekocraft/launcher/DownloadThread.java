@@ -91,7 +91,7 @@ public class DownloadThread extends Thread{
         
     }
     private void downloadFile(String url,File target,Library lib) throws Exception{
-        if (tries<=4){
+        for(int t=0;t<=3;t++){
         int bytesum = 0;
         int byteread = 0;
         URL u=new URL(url);
@@ -109,13 +109,9 @@ public class DownloadThread extends Thread{
         out.flush();
         out.close();
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
-            tries=0;
-        }else{
-            tries+=1;
-            downloadFile(url,target,lib);
+            return;
         }
         }
-        else{
             throw new Exception(){
                 @Override
                 public String getMessage(){
@@ -123,7 +119,6 @@ public class DownloadThread extends Thread{
                 }
             };
         }
-    }
     private void downloadMinecraft(File target,Library lib)throws Exception{
         //获取Minecraft地址
         String version=mc.getMcversion();
