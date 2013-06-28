@@ -91,7 +91,9 @@ public class DownloadThread extends Thread{
         
     }
     private void downloadFile(String url,File target,Library lib) throws Exception{
-        for(int t=0;t<=3;t++){
+        
+        //for(int t=0;t<=3;t++){
+            /*
         int bytesum = 0;
         int byteread = 0;
         URL u=new URL(url);
@@ -108,11 +110,18 @@ public class DownloadThread extends Thread{
                 out.write(buffer, 0, byteread);
         }
         out.flush();
-        out.close();
+        out.close();*/
+        for(int t=0;t<=3;t++){
+        MulThreadDownloaderService mds=new MulThreadDownloaderService();
+        mds.mulThreadDownloader(url, target);
+        while(mds.current!=0){
+            //Thread.sleep(10);
+        }
+        
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
             return;
-        }
-        }
+        }}
+      //  }
             throw new Exception(){
                 @Override
                 public String getMessage(){
