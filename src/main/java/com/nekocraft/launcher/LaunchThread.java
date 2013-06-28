@@ -80,7 +80,7 @@ public class LaunchThread extends Thread{
             command.append("lwjgl.jar;lwjgl_util.jar;jinput.jar;spoutcraft-tmp.jar;minecraft-tmp.jar -Djava.library.path=natives/ net.minecraft.client.Minecraft ");
         }
         if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("linux")|System.getProperty("os.name").replace(" ", "").toLowerCase().contains("mac")){
-            command.append("lwjgl.jar:lwjgl_util.jar:jinput.jar:spoutcraft-tmp.jar:minecraft-tmp.jar -Djava.library.path=natives/ -Duser.home=\"").append(new File("").getAbsolutePath()).append("\" net.minecraft.client.Minecraft ");
+            command.append("lwjgl.jar:lwjgl_util.jar:jinput.jar:spoutcraft-tmp.jar:minecraft-tmp.jar -Djava.library.path=natives/ -Duser.home=").append(new File("").getAbsolutePath()).append(" net.minecraft.client.Minecraft ");
         }
         command.append(LoginFrame.lt.getUser());
         command.append(" ");
