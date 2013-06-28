@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This File is a part of NekoLauncher
+ * of Nekocraft
  */
 package com.nekocraft.launcher;
 import java.io.*;

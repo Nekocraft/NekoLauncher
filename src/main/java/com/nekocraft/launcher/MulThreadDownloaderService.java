@@ -18,7 +18,7 @@ public class MulThreadDownloaderService {
     public int current;
 
     public MulThreadDownloaderService() {
-        this.current = 10;
+        this.current = 20;
     }
  public void mulThreadDownloader(String urlStr,File file) throws Exception{
   URL url = new URL(urlStr);
@@ -30,11 +30,6 @@ public class MulThreadDownloaderService {
   LoginFrame.bar.setMaximum(fileSize);
   LoginFrame.bar.setValue(0);
   conn.disconnect();
-
-  //File file = new File("wang.mp3");
-  //本来还要帮段Sdcard 的状态
-//  File file = new File(Environment.getExternalStorageDirectory(), "wang.mp3");
-  
   // 创建本地随机访问文件, 
   RandomAccessFile randomAccessFile = new RandomAccessFile(file, "rw");
   randomAccessFile.setLength(fileSize);
@@ -103,7 +98,7 @@ public class MulThreadDownloaderService {
         ms.current-=1;
     }
    } catch (Exception e) {
-       NekoLauncher.handleException(e);
+       //NekoLauncher.handleException(e);
    }
   }
  }

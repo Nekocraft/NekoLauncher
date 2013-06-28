@@ -1,6 +1,6 @@
 /*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
+ * This File is a part of NekoLauncher
+ * of Nekocraft
  */
 package com.nekocraft.launcher;
 
@@ -119,6 +119,7 @@ public class DownloadThread extends Thread{
         }
         
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
+            System.out.println("完成");
             return;
         }}
       //  }
