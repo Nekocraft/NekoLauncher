@@ -107,6 +107,7 @@ public class DownloadThread extends Thread{
                 out.write(buffer, 0, byteread);
         }
         out.flush();
+        out.close();
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
             tries=0;
         }else{
