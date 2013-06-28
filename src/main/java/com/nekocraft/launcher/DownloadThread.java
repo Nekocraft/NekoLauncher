@@ -127,7 +127,6 @@ public class DownloadThread extends Thread{
         //获取Minecraft地址
         String version=mc.getMcversion();
         downloadFile(StaticRes.MC_REPO+version.replace(".", "_")+"/minecraft.jar",target,lib);
-        removeMeta(target);
     }
     private void downloadSpoutcraft(File target,Library lib)throws Exception{
         String version=Integer.toString(mc.getScversion());
@@ -135,7 +134,6 @@ public class DownloadThread extends Thread{
         u.append(version);
         u.append("/artifact/target/Spoutcraft.jar");
         downloadFile(u.toString(),target,lib);
-        removeMeta(target);
     }
     private void downloadNative(Library lib,File target)throws Exception{
         
@@ -244,9 +242,6 @@ public class DownloadThread extends Thread{
         
         
         System.out.println(mc.toString());
-    }
-    private void removeMeta(File f) throws Exception{ //META-INF什么的最讨厌了！
-        StaticRes.deleteZipEntry(f,new String[]{"META-INF/"});
     }
 
 }

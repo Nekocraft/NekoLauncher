@@ -121,6 +121,7 @@ public class MinecraftStructure {  ///For Notch's Structure
         }
         return str.toString();
     }
+
 }
 class Library{
     private String name;
