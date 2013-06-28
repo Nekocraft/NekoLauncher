@@ -6,3 +6,5 @@
 *.ear
 /target/
 /.minecraft/
+nb-configuration.xml
+nbactions.xml
