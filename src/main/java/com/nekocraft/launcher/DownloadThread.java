@@ -31,8 +31,8 @@ public class DownloadThread extends Thread{
         } catch (Exception ex) {
             NekoLauncher.handleException(ex);
         }
-        LaunchThread launch=new LaunchThread(mc);
-        launch.start();
+        NekoLauncher.launch=new LaunchThread(mc);
+        NekoLauncher.launch.start();
     }
     private void fetchCurrentVersion(){ 
         LoginFrame.bar.setString("获取版本信息中...");
@@ -115,13 +115,18 @@ public class DownloadThread extends Thread{
         MulThreadDownloaderService mds=new MulThreadDownloaderService();
         mds.mulThreadDownloader(url, target);
         while(mds.current!=0){
-            //Thread.sleep(10);
+            Thread.sleep(10);
         }
-        
+            System.out.println("Required:"+lib.getMd5());
+            System.out.println("Found:"+FileDigest.getFileMD5(target));    
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
             System.out.println("完成");
             return;
-        }}
+        }else{
+            System.out.println("Delete:"+target.delete());
+            System.out.println("Exist:"+target.exists());
+        }
+        }
       //  }
             throw new Exception(){
                 @Override

@@ -46,7 +46,11 @@ public class LaunchThread extends Thread{
         try {
             //Thanks to Indeed!
             Process p=proc.start();
+            if (NekoLauncher.isLocal){
             System.exit(0);
+            }else{
+                LoginFrame.instance.reInit();
+            }
         } catch (Exception ex) {
             NekoLauncher.handleException(ex);
         }
@@ -82,9 +86,9 @@ public class LaunchThread extends Thread{
         if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("linux")|System.getProperty("os.name").replace(" ", "").toLowerCase().contains("mac")){
             command.append("lwjgl.jar:lwjgl_util.jar:jinput.jar:spoutcraft-tmp.jar:minecraft-tmp.jar -Djava.library.path=natives/ -Duser.home=").append(new File("").getAbsolutePath()).append(" net.minecraft.client.Minecraft ");
         }
-        command.append(LoginFrame.lt.getUser());
+        command.append(NekoLauncher.lt.getUser());
         command.append(" ");
-        command.append(LoginFrame.lt.getSession());
+        command.append(NekoLauncher.lt.getSession());
         return command.toString();
     }
     private void removeMeta(File f) throws Exception{ //META-INF什么的最讨厌了！

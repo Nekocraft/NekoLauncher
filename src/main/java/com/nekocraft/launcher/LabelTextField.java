@@ -30,4 +30,7 @@ public class LabelTextField extends JSplitPane{
     public String getTextContent(){
         return text.getText();
     }
+    public void setTextContent(String str){
+        text.setText(str);
+    }
 }

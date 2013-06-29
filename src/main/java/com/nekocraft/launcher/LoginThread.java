@@ -39,7 +39,8 @@ public class LoginThread extends Thread{
             if (session==null){
                 throw new LoginFailedException();
             }
-            new DownloadThread().start();
+            NekoLauncher.dt=new DownloadThread();
+            NekoLauncher.dt.start();
         }
         catch (LoginFailedException e){
             JOptionPane.showMessageDialog(NekoLauncher.mf,"用户名或密码错误！");
