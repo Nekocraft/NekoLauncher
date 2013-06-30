@@ -9,10 +9,14 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.Charset;
+import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import java.util.zip.*;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;
+import org.xml.sax.SAXException;
 /**
  *
  * @author gjz010
@@ -20,10 +24,12 @@ import org.xml.sax.InputSource;
 public class DownloadThread extends Thread{
     private MinecraftStructure mc;
     private String current;
-    private int tries=0;
+    private String cmirror;
+    private List<Mirror> mirrors;
     @Override
     public void run(){
         fetchCurrentVersion();
+        fetchMirrors();
         mc=new MinecraftStructure();
         try {
             parseXML();
@@ -53,6 +59,58 @@ public class DownloadThread extends Thread{
             }
         }
     }
+    private void fetchMirrors(){
+        try {
+            mirrors=new ArrayList<>();
+            LoginFrame.bar.setString("获取镜像列表中...");
+            FileWriter out = null;
+            try {
+                cmirror=HTMLFetcher.getHTML(StaticRes.INFO_REPO+"mirrors.xml", "UTF-8");
+                out = new FileWriter(StaticRes.MIRRORS_XML);
+                BufferedWriter b=new BufferedWriter(out);
+                b.write(cmirror);
+                b.flush();
+            } catch (IOException ex) {
+                NekoLauncher.handleException(ex);
+            } finally {
+                try {
+                    out.close();
+                } catch (IOException ex) {
+                    NekoLauncher.handleException(ex);
+                }
+            }
+            DOMParser parser=new DOMParser();
+            parser.parse(new InputSource(new StringReader(cmirror)));
+            Document doc=parser.getDocument();
+            NodeList mirrornodes=doc.getElementsByTagName("mirror");
+            for(int i=0;i<mirrornodes.getLength();i++){
+              Mirror tempm=new Mirror();
+                for(int j=0;j<mirrornodes.item(i).getAttributes().getLength();j++){
+                    if(mirrornodes.item(i).getAttributes().item(j).getNodeName().equals("name")){
+                        tempm.setName(mirrornodes.item(i).getAttributes().item(j).getNodeValue());
+                    }
+                    if(mirrornodes.item(i).getAttributes().item(j).getNodeName().equals("spout")){
+                        tempm.setSpoutcraftjar(mirrornodes.item(i).getAttributes().item(j).getNodeValue());
+                    }
+                    if(mirrornodes.item(i).getAttributes().item(j).getNodeName().equals("minecraft")){
+                        tempm.setMinecraftjar(mirrornodes.item(i).getAttributes().item(j).getNodeValue());
+                    }
+                    if(mirrornodes.item(i).getAttributes().item(j).getNodeName().equals("librepo")){
+                        tempm.setLibrepo(mirrornodes.item(i).getAttributes().item(j).getNodeValue());
+                    }
+                }
+                mirrors.add(tempm);
+            }
+            Collections.sort(mirrors);
+            for(Mirror m:mirrors){
+                System.out.println(m.getName());
+            }
+        } catch (SAXException ex) {
+            NekoLauncher.handleException(ex);
+        } catch (IOException ex) {
+            NekoLauncher.handleException(ex);
+        }
+    }
     private void updateGame()throws Exception{ 
         ///////////最烦1.6的结构了！ 在这里只写旧版本的更新。
         for (Library l:mc.getJars()){
@@ -74,23 +132,10 @@ public class DownloadThread extends Thread{
         File f=getFile(lib,type);
         String fmd5=FileDigest.getFileMD5(f);
         if(!lib.getMd5().equals(fmd5)){
-            if(lib.getName().equals("minecraft.jar")){
-                downloadMinecraft(f,lib);
-                return;
-            }
-            if(lib.getName().equals("spoutcraft.jar")){
-                downloadSpoutcraft(f,lib);
-                return;
-            }
-            if(type==1){
-                downloadNative(lib,f);
-                return;
-            }
-            downloadFile(StaticRes.INFO_REPO+lib.getName(),f,lib);
+            downloadFile(lib,f,type);
         }
-        
     }
-    private void downloadFile(String url,File target,Library lib) throws Exception{
+    private void downloadFile(Library lib,File target,int type){
         
         //for(int t=0;t<=3;t++){
             /*
@@ -111,46 +156,64 @@ public class DownloadThread extends Thread{
         }
         out.flush();
         out.close();*/
+        if(type==1){
+            if(!System.getProperty("os.name").replace(" ", "").toLowerCase().contains(lib.getOs())){
+                return;
+            }
+        }
+        for(Mirror m:mirrors){
+        StringBuilder url=new StringBuilder();
+        if(lib.getName().equals("minecraft.jar")) {
+                url.append(m.getMinecraftJar(mc.getMcversion()));
+            }else
+       if(lib.getName().equals("spoutcraft.jar")) {
+                url.append(m.getSpoutcraftJar(mc.getScversion()));
+            }else{
+           url.append(m.getLibraryURL(lib));
+       }
         for(int t=0;t<=3;t++){
+        System.out.println(url.toString());
         MulThreadDownloaderService mds=new MulThreadDownloaderService();
-        mds.mulThreadDownloader(url, target);
+                try {
+                    mds.mulThreadDownloader(url.toString(), target);
+                } catch (Exception ex) {
+                    break;
+                }
         while(mds.current!=0){
-            Thread.sleep(10);
+                try {
+                    Thread.sleep(10);
+                } catch (InterruptedException ex) {
+                    NekoLauncher.handleException(ex);
+                }
         }
             System.out.println("Required:"+lib.getMd5());
             System.out.println("Found:"+FileDigest.getFileMD5(target));    
         if(lib.getMd5().equals(FileDigest.getFileMD5(target))){
             System.out.println("完成");
+            if(type==1){
+                try {
+                    unzipNative(target);
+                } catch (Exception ex) {
+                    NekoLauncher.handleException(ex);
+                }
+            }
             return;
         }else{
             System.out.println("Delete:"+target.delete());
             System.out.println("Exist:"+target.exists());
         }
         }
+        }
       //  }
-            throw new Exception(){
+            NekoLauncher.handleException(
+        new Exception(){
                 @Override
                 public String getMessage(){
                     return "Download Failed because MD5 verify not passed!";
                 }
-            };
+            });
         }
-    private void downloadMinecraft(File target,Library lib)throws Exception{
-        //获取Minecraft地址
-        String version=mc.getMcversion();
-        downloadFile(StaticRes.MC_REPO+version.replace(".", "_")+"/minecraft.jar",target,lib);
-    }
-    private void downloadSpoutcraft(File target,Library lib)throws Exception{
-        String version=Integer.toString(mc.getScversion());
-        StringBuilder u=new StringBuilder(StaticRes.SCP_REPO);
-        u.append(version);
-        u.append("/artifact/target/Spoutcraft.jar");
-        downloadFile(u.toString(),target,lib);
-    }
-    private void downloadNative(Library lib,File target)throws Exception{
-        
-        if(System.getProperty("os.name").toLowerCase().replace(" ", "").contains(lib.getOs())){
-        downloadFile(StaticRes.INFO_REPO+lib.getName(),target,lib);
+    private void unzipNative(File target)throws Exception{
         ZipFile zip=new ZipFile(target);
         ZipInputStream zis = new ZipInputStream(new FileInputStream(target), Charset.forName("UTF-8"));
         ZipEntry entry=null;
@@ -169,7 +232,6 @@ public class DownloadThread extends Thread{
             
         }
         }
-    }
     private File getFile(Library lib,int type){
         //////type值:0-jar 1-native 2-lib 3-mod
         switch(type){

@@ -64,7 +64,7 @@ public class NekoLauncher extends JFrame{
         Random random = new Random();//我会说这里有个彩蛋吗
         int r=random.nextInt(10);
         if(r==2){
-            exFrame.setTitle("Yooooooooo!Something went wrong!");
+            exFrame.setTitle("Yooooooooo!You sold your soul to Lucifer!");
         }
         else{
             exFrame.setTitle("Whoooooops!Something went wrong!");

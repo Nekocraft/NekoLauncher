@@ -24,6 +24,7 @@ public class MulThreadDownloaderService {
   URL url = new URL(urlStr);
   HttpURLConnection conn = (HttpURLConnection) url.openConnection();
   conn.setRequestMethod("GET");
+  conn.setRequestProperty("Accept-Encoding", "identity"); 
   
   // 由链接对象来获取文件大小
   int fileSize = conn.getContentLength();

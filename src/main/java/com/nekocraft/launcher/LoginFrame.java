@@ -73,7 +73,6 @@ public class LoginFrame extends JApplet{
         if(!new File(".minecraft/options.txt").exists()){
         FileUtil.createFile(new File(".minecraft/options.txt").getAbsolutePath(),"lang:zh_CN");
         }
-        throw new Exception();
         }
         catch(Exception ex){
             NekoLauncher.handleException(ex);
