@@ -21,7 +21,7 @@ public class StaticRes {
     public static final String MC_REPO="http://assets.minecraft.net/$VERSION$/minecraft.jar";
     public static final File MINECRAFT=new File(".minecraft/");
     public static final File CURRENT_XML=new File(".minecraft/current.xml");
-    public static final File MIRRORS_XML=new File(".minecraft/current.xml");
+    public static final File MIRRORS_XML=new File(".minecraft/mirrors.xml");
     public static final File BIN=new File(".minecraft/bin/");
     public static final File NATIVES=new File(".minecraft/bin/natives/");
     public static final File LIB=new File(".minecraft/bin/lib/");

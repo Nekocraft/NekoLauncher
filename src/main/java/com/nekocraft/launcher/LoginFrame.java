@@ -15,6 +15,7 @@ public class LoginFrame extends JApplet{
         return ref;
     }
     public LoginFrame(){
+        System.out.println(new File("").getAbsolutePath());
         ref=false;
         instance=this;
         ////////窗体逻辑

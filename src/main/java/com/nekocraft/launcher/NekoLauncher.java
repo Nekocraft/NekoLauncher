@@ -79,14 +79,9 @@ public class NekoLauncher extends JFrame{
          System.exit(0);//退出程序
          }
          else{
-             //exFrame.dispose();
-             //mf.reInit();
+             exFrame.dispose();
+             mf.reInit();
              mf.ref=true;
-             try{
-                 mf.getAppletContext().showDocument(new URL("http://nekocraft.com"));
-             }catch(Exception ignore){
-             ignore.printStackTrace();
-             };
          }
         }
         });
@@ -110,8 +105,9 @@ public class NekoLauncher extends JFrame{
         exFrame.setVisible(true);}
     }
     public static void initDir(File dir) throws Exception{
+        System.out.println("Dir:"+dir.getName()+" "+dir.exists());
         if(!dir.exists()){
-            dir.mkdir();
+            System.out.println("Mkdir:"+dir.getName()+" "+dir.mkdir());
         }
     }
     
