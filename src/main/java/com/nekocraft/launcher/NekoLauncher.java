@@ -29,20 +29,25 @@ public class NekoLauncher extends JFrame{
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.add(mf);
     }
+    public static void init(){
+      try{
+        NekoLauncher.initDir(StaticRes.MINECRAFT);
+        NekoLauncher.initDir(StaticRes.BIN);
+        NekoLauncher.initDir(StaticRes.LIB);
+        NekoLauncher.initDir(StaticRes.NATIVES);
+        NekoLauncher.initDir(StaticRes.MODS);
+        if(!new File(".minecraft/options.txt").exists()){
+        FileUtil.createFile(new File(".minecraft/options.txt").getAbsolutePath(),"lang:zh_CN");
+        }
+        }
+        catch(Exception ex){
+            NekoLauncher.handleException(ex);
+        }
+    }
     public static void main(String[] args){
         System.out.println("Woo Nekocraft Launcher!");
-        isLocal=true;
+        init();
         mf=new LoginFrame();
-        JFrame jf=new JFrame();
-        jf.setContentPane(mf);
-        jf.setTitle("Nekocraft Launcher");  
-        jf.setResizable(false); 
-        jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        mf.init();
-        mf.start();
-        jf.setSize(mf.getSize());
-        jf.setLocationRelativeTo(jf.getOwner());
-        jf.setVisible(true);
     }
     private static JDialog exFrame;
     private static boolean exinit=false;
@@ -74,15 +79,8 @@ public class NekoLauncher extends JFrame{
         exFrame.addWindowListener(new WindowAdapter(){
          @Override
          public void windowClosing(WindowEvent e) {
-             exinit=false;
-         if(isLocal){
+         exinit=false;
          System.exit(0);//退出程序
-         }
-         else{
-             exFrame.dispose();
-             mf.reInit();
-             mf.ref=true;
-         }
         }
         });
         text=new JTextArea();
