@@ -3,14 +3,8 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;  
-import javax.swing.text.html.HTMLEditorKit;
-import javax.swing.text.html.StyleSheet;
 //import javax.swing.text.html.StyleSheet;
 public class LoginFrame extends JFrame{
     public static GradientProgressBar bar;
@@ -116,22 +110,12 @@ public class LoginFrame extends JFrame{
         newsTitle.setBounds(189, 305, 238, 25);
         newsTitle.setOpaque(false);
         this.getContentPane().add(newsTitle);
+        //fetchNews();
+        newsTitle.setFont(new Font("simhei",Font.BOLD,16));
         setVisible(true);
-        fetchNews();
     }
     private void fetchNews(){
-            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
-            StyleSheet styleSheet = new StyleSheet();
-            URL resource;
-        try {
-            resource = new URL(StaticRes.NEKO+"g.css");
-        } catch (MalformedURLException ex) {
-            NekoLauncher.handleException(ex);
-            resource=null;
-        }
-            styleSheet.importStyleSheet(resource);
-            htmlEditorKit.setStyleSheet(styleSheet);
-        newsTitle.setText("<html><font color=\"#9568e7\" size=\"12pt\"><a href=\"https://nekocraft.com/s3-update-2/\">三周目更新说明 第二弹-冒险更新</a></h3></font></html>");
+        newsTitle.setText("");
     }
     private void initPic() throws IOException{
         JPanel bk=new JPanel(){

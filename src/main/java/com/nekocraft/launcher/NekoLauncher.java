@@ -14,7 +14,7 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 
-public class NekoLauncher extends JFrame{
+public class NekoLauncher{
     public static LoginFrame mf;
     public static boolean isLocal=false;
     
@@ -23,11 +23,6 @@ public class NekoLauncher extends JFrame{
     public static LoginThread lt;
     public static DownloadThread dt;
     public NekoLauncher(){
-        this.setTitle("Nekocraft Launcher");  
-        setResizable(false); 
-        setLocationRelativeTo(getOwner());
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.add(mf);
     }
     public static void init(){
       try{
