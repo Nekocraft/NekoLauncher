@@ -13,7 +13,7 @@ public class LoginFrame extends JFrame{
     private JTextField user,pass;
     private static Point origin = new Point(); 
     public boolean dragging;
-    private JLabel newsTitle,newsContent;
+    private JLabel newsTitle,newsDate,newsContent;
     public LoginFrame(){
         dragging=false;
         System.out.println(new File("").getAbsolutePath());
@@ -106,16 +106,53 @@ public class LoginFrame extends JFrame{
         pass.setBounds(207,224,175,18);
         this.getContentPane().add(pass);
         newsTitle=new JLabel("正在读取新闻中……");
-        //newsTitle.getFont().
-        newsTitle.setBounds(189, 305, 238, 25);
+        newsDate=new JLabel("");
+        newsContent=new JLabel("");
+        newsTitle.setBounds(189, 305, 198, 25); //50 less
+        newsDate.setBounds(387, 305, 50, 25);
+        newsContent.setBounds(189,330,248,65);
         newsTitle.setOpaque(false);
+        newsDate.setOpaque(false);
+        newsContent.setOpaque(false);
         this.getContentPane().add(newsTitle);
-        //fetchNews();
-        newsTitle.setFont(new Font("simhei",Font.BOLD,16));
+        this.getContentPane().add(newsDate);
+        this.getContentPane().add(newsContent);
+        newsTitle.setForeground(Color.decode("#673ab9"));
+        newsDate.setForeground(Color.decode("#c0c0c0"));
+        newsContent.setForeground(Color.gray);
+        newsTitle.setFont(new Font("simhei",Font.TRUETYPE_FONT,16));
+        newsDate.setFont(new Font("simsun",Font.TRUETYPE_FONT,13));
         setVisible(true);
+        fetchNews();
     }
     private void fetchNews(){
-        newsTitle.setText("");
+        NekoNews news=NekoNews.fetchLatestNews();
+        newsTitle.setText(news.getTitle());
+        newsTitle.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mousePressed(MouseEvent e){
+                System.out.println("Clicked!");
+        if(java.awt.Desktop.isDesktopSupported()){
+            try {
+                //创建一个URI实例
+                java.net.URI uri = java.net.URI.create(NekoNews.fetchLatestNews().getLink()); 
+                //获取当前系统桌面扩展
+                java.awt.Desktop dp = java.awt.Desktop.getDesktop();
+                //判断系统桌面是否支持要执行的功能
+                if(dp.isSupported(java.awt.Desktop.Action.BROWSE)){
+                    //获取系统默认浏览器打开链接
+                    dp.browse(uri);    
+                }
+            } catch(java.lang.NullPointerException ex){
+                //此为uri为空时抛出异常
+            } catch (java.io.IOException ex) {
+                //此为无法获取系统默认浏览器
+            }             
+        }
+            }
+        });
+        newsDate.setText(news.getDate());
+        newsContent.setText("<html>"+news.getDesc()+"</html>");
     }
     private void initPic() throws IOException{
         JPanel bk=new JPanel(){
