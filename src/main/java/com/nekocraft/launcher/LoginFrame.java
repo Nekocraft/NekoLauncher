@@ -3,15 +3,23 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import javax.swing.*;  
+import javax.swing.text.html.HTMLEditorKit;
+import javax.swing.text.html.StyleSheet;
+//import javax.swing.text.html.StyleSheet;
 public class LoginFrame extends JFrame{
     public static GradientProgressBar bar;
     public static JLabel login=new JLabel("");
     public static LoginFrame instance;
     private JTextField user,pass;
     private static Point origin = new Point(); 
-    public static boolean dragging;
+    public boolean dragging;
+    private JLabel newsTitle,newsContent;
     public LoginFrame(){
         dragging=false;
         System.out.println(new File("").getAbsolutePath());
@@ -20,11 +28,10 @@ public class LoginFrame extends JFrame{
         this.setTitle("NekoLauncher");
         this.setSize(new Dimension(600, 450));   
         setResizable(false); 
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(getOwner());
         setUndecorated(true);
-        setVisible(true);
-        this.setLayout(null);
+        //this.setLayout(null);
         try{
         initPic();
         }
@@ -104,6 +111,27 @@ public class LoginFrame extends JFrame{
         pass.setBorder(null);
         pass.setBounds(207,224,175,18);
         this.getContentPane().add(pass);
+        newsTitle=new JLabel("正在读取新闻中……");
+        //newsTitle.getFont().
+        newsTitle.setBounds(189, 305, 238, 25);
+        newsTitle.setOpaque(false);
+        this.getContentPane().add(newsTitle);
+        setVisible(true);
+        fetchNews();
+    }
+    private void fetchNews(){
+            HTMLEditorKit htmlEditorKit = new HTMLEditorKit();
+            StyleSheet styleSheet = new StyleSheet();
+            URL resource;
+        try {
+            resource = new URL(StaticRes.NEKO+"g.css");
+        } catch (MalformedURLException ex) {
+            NekoLauncher.handleException(ex);
+            resource=null;
+        }
+            styleSheet.importStyleSheet(resource);
+            htmlEditorKit.setStyleSheet(styleSheet);
+        newsTitle.setText("<html><font color=\"#9568e7\" size=\"12pt\"><a href=\"https://nekocraft.com/s3-update-2/\">三周目更新说明 第二弹-冒险更新</a></h3></font></html>");
     }
     private void initPic() throws IOException{
         JPanel bk=new JPanel(){
@@ -116,24 +144,29 @@ public class LoginFrame extends JFrame{
             catch(Exception ignore){
                 ignore.printStackTrace();
             }
+            //
             }      
         };
         bk.setLayout(null);
-                bk.addMouseListener(new MouseAdapter() {
+        bk.setOpaque(false);
+        this.setContentPane(bk);
+        ComponentMover cm=new ComponentMover(JFrame.class,bk);
+        /*
+                this.addMouseListener(new MouseAdapter() {
                         public void mousePressed(MouseEvent e) {  //按下（mousePressed 不是点击，而是鼠标被按下没有抬起）
-                                LoginFrame.dragging=true;
-                                System.out.println(LoginFrame.dragging);
+                                NekoLauncher.mf.dragging=true;
+                                System.out.println(NekoLauncher.mf.dragging);
                                 origin.x = e.getX();  //当鼠标按下的时候获得窗口当前的位置
                                 origin.y = e.getY();
                         }
                         public void mouseReleased(MouseEvent e){
-                                LoginFrame.dragging=false;
-                                System.out.println(LoginFrame.dragging);
+                                NekoLauncher.mf.dragging=false;
+                                System.out.println(NekoLauncher.mf.dragging);
                         }
                 });
-                bk.addMouseMotionListener(new MouseMotionAdapter() {
+                this.addMouseMotionListener(new MouseMotionAdapter() {
                         public void mouseDragged(MouseEvent e) {  //拖动（mouseDragged 指的不是鼠标在窗口中移动，而是用鼠标拖动）
-                                if(LoginFrame.dragging){
+                                if(NekoLauncher.mf.dragging){
                                 System.out.println(NekoLauncher.mf.getLocation().toString());
                                 Point p = NekoLauncher.mf.getLocation();  //当鼠标拖动时获取窗口当前位置
                                 //设置窗口的位置
@@ -142,7 +175,7 @@ public class LoginFrame extends JFrame{
                                 System.out.println(NekoLauncher.mf.getLocation().toString());
                                 }
                         }
-                });
+                });*/
                this.setContentPane(bk);
         //this.setContentPane(panel);
         //JLabel logo=new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("launch.png"))));
