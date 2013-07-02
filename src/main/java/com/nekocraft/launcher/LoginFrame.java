@@ -1,4 +1,5 @@
 package com.nekocraft.launcher;
+import com.sun.awt.AWTUtilities;
 import java.awt.*;  
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
@@ -27,7 +28,8 @@ public class LoginFrame extends JFrame{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(getOwner());
         setUndecorated(true);
-        //this.setLayout(null);
+        this.setLayout(null);
+        //this.setBackground(new Color(100,0,0,0));
         try{
         initPic();
         }
@@ -116,7 +118,7 @@ public class LoginFrame extends JFrame{
         newsTitle.setOpaque(false);
         newsDate.setOpaque(false);
         newsContent.setOpaque(false);
-        //com.sun.awt.AWTUtilities.setWindowOpacity(this,0.7F);
+        com.sun.awt.AWTUtilities.setWindowOpacity(this,0.7F);
         this.getContentPane().add(newsTitle);
         this.getContentPane().add(newsDate);
         this.getContentPane().add(newsContent);
@@ -124,10 +126,10 @@ public class LoginFrame extends JFrame{
         newsDate.setForeground(Color.decode("#c0c0c0"));
         newsContent.setForeground(Color.gray);
         newsTitle.setFont(new Font("simhei",Font.TRUETYPE_FONT,16));
-        newsDate.setFont(new Font("simsun",Font.TRUETYPE_FONT,13));
+        newsDate.setFont(new Font("simsun",Font.TRUETYPE_FONT,12));
         newsContent.setFont(newsContent.getFont().deriveFont(15F));
-        
-        mouse=new JLabel("你好世界");
+        //AWTUtilities.setWindowOpaque(this, false);
+        mouse=new JLabel("");
         //mouse.setBackground(Color.red);
         mouse.setOpaque(false);
         mouse.setBounds(471,183,64,64);
@@ -139,6 +141,7 @@ public class LoginFrame extends JFrame{
         setVisible(true);
         fetchNews();
     }
+
     private void fetchNews(){
         NekoNews news=NekoNews.fetchLatestNews();
         newsTitle.setText(news.getTitle());
@@ -174,7 +177,7 @@ public class LoginFrame extends JFrame{
             {   
             super.paintComponent(g);  
             try{
-            g.drawImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("launch.png")),0,0,this); 
+            g.drawImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("bg1.png")),0,0,this); 
             }
             catch(Exception ignore){
                 ignore.printStackTrace();
