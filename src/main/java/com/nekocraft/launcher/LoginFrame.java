@@ -1,6 +1,7 @@
 package com.nekocraft.launcher;
 import java.awt.*;  
 import java.awt.event.*;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import javax.imageio.ImageIO;
@@ -14,6 +15,7 @@ public class LoginFrame extends JFrame{
     private static Point origin = new Point(); 
     public boolean dragging;
     private JLabel newsTitle,newsDate,newsContent;
+    private JLabel mouse;
     public LoginFrame(){
         dragging=false;
         System.out.println(new File("").getAbsolutePath());
@@ -110,10 +112,11 @@ public class LoginFrame extends JFrame{
         newsContent=new JLabel("");
         newsTitle.setBounds(189, 305, 198, 25); //50 less
         newsDate.setBounds(387, 305, 50, 25);
-        newsContent.setBounds(189,330,248,65);
+        newsContent.setBounds(188,331,238,73);
         newsTitle.setOpaque(false);
         newsDate.setOpaque(false);
         newsContent.setOpaque(false);
+        //com.sun.awt.AWTUtilities.setWindowOpacity(this,0.7F);
         this.getContentPane().add(newsTitle);
         this.getContentPane().add(newsDate);
         this.getContentPane().add(newsContent);
@@ -122,6 +125,17 @@ public class LoginFrame extends JFrame{
         newsContent.setForeground(Color.gray);
         newsTitle.setFont(new Font("simhei",Font.TRUETYPE_FONT,16));
         newsDate.setFont(new Font("simsun",Font.TRUETYPE_FONT,13));
+        newsContent.setFont(newsContent.getFont().deriveFont(15F));
+        
+        mouse=new JLabel("你好世界");
+        //mouse.setBackground(Color.red);
+        mouse.setOpaque(false);
+        mouse.setBounds(471,183,64,64);
+        try{
+        mouse.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("progball.png"))));
+        }catch(Exception ex){NekoLauncher.handleException(ex);
+        }
+        this.getContentPane().add(mouse);
         setVisible(true);
         fetchNews();
     }
