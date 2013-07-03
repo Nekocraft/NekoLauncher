@@ -119,6 +119,9 @@ public class LoginFrame extends JFrame{
         savepwd=new JCheckBox("保存密码");
         savepwd.setOpaque(false);
         savepwd.setBounds(385, 224,80,18);
+        if(!pass.getText().equals("")){
+            savepwd.setSelected(true);
+        }
         this.getContentPane().add(savepwd);
         ////////新闻逻辑
         newsTitle=new JLabel("正在读取新闻中……");

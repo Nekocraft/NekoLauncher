@@ -71,7 +71,7 @@ public class NekoUser {
             os = new FileOutputStream(target);
             prop.setProperty("username", getUsername());
             if(savePassword){
-            prop.setProperty("password", getPassword());
+            prop.setProperty("password", Base64Utils.getBASE64(getPassword().getBytes()));
             }else{
                 prop.setProperty("password", "");
             }
