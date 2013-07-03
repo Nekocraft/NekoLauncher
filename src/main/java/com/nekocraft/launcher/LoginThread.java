@@ -11,8 +11,7 @@ import javax.swing.JOptionPane;
  * @author Administrator
  */
 public class LoginThread extends Thread{
-    private String user;
-    private String password;
+    private NekoUser user;
     private URL u;
     private HttpURLConnection con;
     private String session;
@@ -39,6 +38,7 @@ public class LoginThread extends Thread{
             if (session==null){
                 throw new LoginFailedException();
             }
+            user.saveUser(StaticRes.USERDATA,LoginFrame.savepwd.isSelected());
             NekoLauncher.dt=new DownloadThread();
             NekoLauncher.dt.start();
         }
@@ -64,13 +64,13 @@ public class LoginThread extends Thread{
      * @return the user
      */
     public String getUser() {
-        return user;
+        return user.getUsername();
     }
 
     /**
      * @param user the user to set
      */
-    public void setUser(String user) {
+    public void setUser(NekoUser user) {
         this.user = user;
     }
 
@@ -78,14 +78,14 @@ public class LoginThread extends Thread{
      * @return the password
      */
     public String getPassword() {
-        return password;
+        return user.getPassword();
     }
 
     /**
      * @param password the password to set
      */
     public void setPassword(String password) {
-        this.password = password;
+        user.setPassword(password);
     }
 
     /**

@@ -22,6 +22,7 @@ public class NekoLauncher{
     public static LaunchThread launch;
     public static LoginThread lt;
     public static DownloadThread dt;
+    public static NekoUser du;
     public NekoLauncher(){
     }
     public static void init(){
@@ -34,6 +35,13 @@ public class NekoLauncher{
         if(!new File(".minecraft/options.txt").exists()){
         FileUtil.createFile(new File(".minecraft/options.txt").getAbsolutePath(),"lang:zh_CN");
         }
+        du=new NekoUser();
+        if(!StaticRes.USERDATA.exists()){
+        du.setUsername("");
+        du.setPassword("");
+        du.saveUser(StaticRes.USERDATA,false);
+        }
+        du.loadUser(StaticRes.USERDATA);
         }
         catch(Exception ex){
             NekoLauncher.handleException(ex);

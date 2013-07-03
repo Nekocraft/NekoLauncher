@@ -27,6 +27,7 @@ public class StaticRes {
     public static final File NATIVES=new File(".minecraft/bin/natives/");
     public static final File LIB=new File(".minecraft/bin/lib/");
     public static final File MODS=new File(".minecraft/mods/");
+    public static final File USERDATA=new File(".minecraft/user.properties");
 //Link:http://www.javaer.org/java/1-zip/3-delete-zipentry-from-zip-file
     public static void deleteZipEntry(File zipFile,
              String[] files) throws IOException {

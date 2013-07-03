@@ -5,6 +5,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;  
 //import javax.swing.text.html.StyleSheet;
@@ -13,17 +14,17 @@ public class LoginFrame extends JFrame{
     public static JLabel login=new JLabel("");
     public static LoginFrame instance;
     private JTextField user,pass;
-    private static Point origin = new Point(); 
     public boolean dragging;
     private JLabel newsTitle,newsDate,newsContent;
-    private JLabel mouse;
+    private JLabel head;
+    public static JCheckBox savepwd;
     public LoginFrame(){
         dragging=false;
         System.out.println(new File("").getAbsolutePath());
         instance=this;
         ////////窗体逻辑
         this.setTitle("NekoLauncher");
-        this.setSize(new Dimension(600, 450));   
+        this.setSize(new Dimension(620, 450));   
         setResizable(false); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(getOwner());
@@ -60,7 +61,7 @@ public class LoginFrame extends JFrame{
             }
             
         });*/
-        ////////按钮逻辑
+        ////////登录按钮逻辑
         login.setBounds(516,367,47,47);
         login.setEnabled(true);
         this.getContentPane().add(login);
@@ -68,10 +69,12 @@ public class LoginFrame extends JFrame{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                JOptionPane.showMessageDialog(null,"Hello!");
+                //JOptionPane.showMessageDialog(null,"Hello!");
                 NekoLauncher.lt=new LoginThread();
-                NekoLauncher.lt.setUser(user.getText());
-                NekoLauncher.lt.setPassword(pass.getText());
+                NekoUser usr=NekoLauncher.du;
+                usr.setUsername(user.getText());
+                usr.setPassword(pass.getText());
+                NekoLauncher.lt.setUser(usr);
                 NekoLauncher.lt.start();
                 login.setEnabled(false);
             }});
@@ -88,6 +91,7 @@ public class LoginFrame extends JFrame{
         bar.setStringPainted(true);
         bar.setString("请登录");
         this.getContentPane().add(bar);
+        ////////关闭按钮逻辑
         JLabel close=new JLabel("");
         close.setBounds(563, 14, 24, 18);
         close.addMouseListener(new MouseAdapter(){
@@ -101,14 +105,22 @@ public class LoginFrame extends JFrame{
             }
         });
         this.getContentPane().add(close);
+        ////////用户名密码保存密码逻辑
         user=new JTextField();
         user.setBorder(null);
         user.setBounds(207,179,175,18);
+        user.setText(NekoLauncher.du.getUsername());
         this.getContentPane().add(user);
         pass=new JPasswordField();
         pass.setBorder(null);
         pass.setBounds(207,224,175,18);
+        pass.setText(NekoLauncher.du.getPassword());
         this.getContentPane().add(pass);
+        savepwd=new JCheckBox("保存密码");
+        savepwd.setOpaque(false);
+        savepwd.setBounds(385, 224,80,18);
+        this.getContentPane().add(savepwd);
+        ////////新闻逻辑
         newsTitle=new JLabel("正在读取新闻中……");
         newsDate=new JLabel("");
         newsContent=new JLabel("");
@@ -118,7 +130,6 @@ public class LoginFrame extends JFrame{
         newsTitle.setOpaque(false);
         newsDate.setOpaque(false);
         newsContent.setOpaque(false);
-        com.sun.awt.AWTUtilities.setWindowOpacity(this,0.7F);
         this.getContentPane().add(newsTitle);
         this.getContentPane().add(newsDate);
         this.getContentPane().add(newsContent);
@@ -127,19 +138,28 @@ public class LoginFrame extends JFrame{
         newsContent.setForeground(Color.gray);
         newsTitle.setFont(new Font("simhei",Font.TRUETYPE_FONT,16));
         newsDate.setFont(new Font("simsun",Font.TRUETYPE_FONT,12));
-        newsContent.setFont(newsContent.getFont().deriveFont(15F));
-        //AWTUtilities.setWindowOpaque(this, false);
-        mouse=new JLabel("");
+        newsContent.setFont(new Font("simsun",Font.TRUETYPE_FONT,13));
+        ////////头像逻辑
+        head=new JLabel("");
         //mouse.setBackground(Color.red);
-        mouse.setOpaque(false);
-        mouse.setBounds(471,183,64,64);
-        try{
-        mouse.setIcon(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("progball.png"))));
-        }catch(Exception ex){NekoLauncher.handleException(ex);
-        }
-        this.getContentPane().add(mouse);
+        head.setOpaque(false);
+        head.setBounds(461,173,64,64);
+        this.getContentPane().add(head);
+        AWTUtilities.setWindowOpaque(this, false);//背景透明
         setVisible(true);
-        fetchNews();
+        new Thread(){
+        public void run(){
+        try{
+        NekoUser userdata=NekoLauncher.du;
+        head.setIcon(new ImageIcon(userdata.getHeadImage()));
+        }catch(Exception ex){NekoLauncher.handleException(ex);
+        }}}.start();
+        new Thread(){
+            public void run(){
+                fetchNews();
+            }
+        }.start();
+        
     }
 
     private void fetchNews(){
