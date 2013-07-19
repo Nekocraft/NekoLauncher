@@ -9,21 +9,21 @@ import java.net.URL;
 import javax.imageio.ImageIO;
 import javax.swing.*;  
 //import javax.swing.text.html.StyleSheet;
-public class LoginFrame extends JFrame{
-    public static GradientProgressBar bar;
+public class LoginFrame extends TransparentFrame{
+    public static JProgressBar bar;
     public static JLabel login=new JLabel("");
+    public static JLabel settings=new JLabel("");
     public static LoginFrame instance;
     private JTextField user,pass;
-    public boolean dragging;
     private JLabel newsTitle,newsDate,newsContent;
     private JLabel head;
     public static JCheckBox savepwd;
+    public TransparentPanel main;
     public LoginFrame(){
-        dragging=false;
+        super("NekoLauncher",new Rectangle(8,9,605,433));
         System.out.println(new File("").getAbsolutePath());
         instance=this;
         ////////窗体逻辑
-        this.setTitle("NekoLauncher");
         this.setSize(new Dimension(620, 450));   
         setResizable(false); 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -32,7 +32,7 @@ public class LoginFrame extends JFrame{
         this.setLayout(null);
         //this.setBackground(new Color(100,0,0,0));
         try{
-        initPic();
+        initPanels();
         }
         catch (Exception e){
             System.out.println(e);
@@ -78,9 +78,16 @@ public class LoginFrame extends JFrame{
                 NekoLauncher.lt.start();
                 login.setEnabled(false);
             }});
+        settings.setBounds(516,414,47,47);
+        this.getContentPane().add(settings);
+        settings.addMouseListener(new MouseAdapter(){
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                JDialog od=new OptionDialog(NekoLauncher.mf,true);
+                od.show();
+            }});
         ////////进度条逻辑
-        bar=new GradientProgressBar();
-        bar.setImage("progressbar.png");
+        bar=new JProgressBar();
         bar.setBounds(145,133, 260, 26);
         bar.setMinimum(0);
         bar.setMaximum(100);
@@ -109,11 +116,13 @@ public class LoginFrame extends JFrame{
         user=new JTextField();
         user.setBorder(null);
         user.setBounds(207,179,175,18);
+        user.setOpaque(false);
         user.setText(NekoLauncher.du.getUsername());
         this.getContentPane().add(user);
         pass=new JPasswordField();
         pass.setBorder(null);
         pass.setBounds(207,224,175,18);
+        pass.setOpaque(false);
         pass.setText(NekoLauncher.du.getPassword());
         this.getContentPane().add(pass);
         savepwd=new JCheckBox("保存密码");
@@ -126,7 +135,7 @@ public class LoginFrame extends JFrame{
         ////////新闻逻辑
         newsTitle=new JLabel("正在读取新闻中……");
         newsDate=new JLabel("");
-        newsContent=new JLabel("");
+        newsContent=new JLabel("<html></html>");
         newsTitle.setBounds(189, 305, 198, 25); //50 less
         newsDate.setBounds(387, 305, 50, 25);
         newsContent.setBounds(188,331,238,73);
@@ -148,7 +157,6 @@ public class LoginFrame extends JFrame{
         head.setOpaque(false);
         head.setBounds(461,173,64,64);
         this.getContentPane().add(head);
-        AWTUtilities.setWindowOpaque(this, false);//背景透明
         setVisible(true);
         new Thread(){
         public void run(){
@@ -194,24 +202,9 @@ public class LoginFrame extends JFrame{
         newsDate.setText(news.getDate());
         newsContent.setText("<html>"+news.getDesc()+"</html>");
     }
-    private void initPic() throws IOException{
-        JPanel bk=new JPanel(){
-            public void paintComponent (Graphics g)  
-            {   
-            super.paintComponent(g);  
-            try{
-            g.drawImage(ImageIO.read(getClass().getClassLoader().getResourceAsStream("bg1.png")),0,0,this); 
-            }
-            catch(Exception ignore){
-                ignore.printStackTrace();
-            }
-            //
-            }      
-        };
-        bk.setLayout(null);
-        bk.setOpaque(false);
-        this.setContentPane(bk);
-        ComponentMover cm=new ComponentMover(JFrame.class,bk);
+    private void initPanels() throws IOException{
+        main=new TransparentPanel();
+        //this.setContentPane(main);
         /*
                 this.addMouseListener(new MouseAdapter() {
                         public void mousePressed(MouseEvent e) {  //按下（mousePressed 不是点击，而是鼠标被按下没有抬起）
@@ -237,14 +230,13 @@ public class LoginFrame extends JFrame{
                                 }
                         }
                 });*/
-               this.setContentPane(bk);
         //this.setContentPane(panel);
         //JLabel logo=new JLabel(new ImageIcon(ImageIO.read(getClass().getClassLoader().getResourceAsStream("launch.png"))));
         //logo.setBounds(0,0,400,130);
         //this.getContentPane().add(logo);
     }
     public void reInit(){
-        
+        /*
         login.setEnabled(true);
         bar.setMinimum(0);
         bar.setMaximum(100);
@@ -252,5 +244,8 @@ public class LoginFrame extends JFrame{
         bar.setString("请登录");
         user.setText("");
         pass.setText("");
+        */
+        //No need for a desktop application
+        System.exit(0);
     }
 }

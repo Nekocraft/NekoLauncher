@@ -44,8 +44,8 @@ public class DownloadThread extends Thread{
         LoginFrame.bar.setString("获取版本信息中...");
         FileWriter out = null;
         try {
-            current=HTMLFetcher.getHTML(StaticRes.INFO_REPO+"current.xml", "UTF-8");
-            out = new FileWriter(StaticRes.CURRENT_XML);
+            current=HTMLFetcher.getHTML(Utils.INFO_REPO+"current.xml", "UTF-8");
+            out = new FileWriter(Utils.CURRENT_XML);
             BufferedWriter b=new BufferedWriter(out);
             b.write(current);
             b.flush();
@@ -65,8 +65,8 @@ public class DownloadThread extends Thread{
             LoginFrame.bar.setString("获取镜像列表中...");
             FileWriter out = null;
             try {
-                cmirror=HTMLFetcher.getHTML(StaticRes.INFO_REPO+"mirrors.xml", "UTF-8");
-                out = new FileWriter(StaticRes.MIRRORS_XML);
+                cmirror=HTMLFetcher.getHTML(Utils.INFO_REPO+"mirrors.xml", "UTF-8");
+                out = new FileWriter(Utils.MIRRORS_XML);
                 BufferedWriter b=new BufferedWriter(out);
                 b.write(cmirror);
                 b.flush();
@@ -127,7 +127,7 @@ public class DownloadThread extends Thread{
         }
     }
     private void updateFile(Library lib,int type) throws Exception{//////type值:0-jar 1-native 2-lib 3-mod
-        LoginFrame.bar.setString("Updating "+lib.getName());
+        LoginFrame.bar.setString("正在更新 "+lib.getName()+"...");
         LoginFrame.bar.setValue(0);
         File f=getFile(lib,type);
         String fmd5=FileDigest.getFileMD5(f);
@@ -219,7 +219,7 @@ public class DownloadThread extends Thread{
         ZipEntry entry=null;
         while((entry=zis.getNextEntry())!=null){
             String filename=entry.getName();
-            File temp=new File(StaticRes.NATIVES,filename);
+            File temp=new File(Utils.NATIVES,filename);
             OutputStream os = new FileOutputStream(temp);
             InputStream is = zip.getInputStream(entry);
             int len = 0;
@@ -236,15 +236,15 @@ public class DownloadThread extends Thread{
         //////type值:0-jar 1-native 2-lib 3-mod
         switch(type){
             case 0:
-                return new File(StaticRes.BIN,lib.getName());//jar
+                return new File(Utils.BIN,lib.getName());//jar
             case 1:
-                return new File(StaticRes.NATIVES,lib.getName());//native
+                return new File(Utils.NATIVES,lib.getName());//native
             case 2:
-                return new File(StaticRes.LIB,lib.getName());//lib
+                return new File(Utils.LIB,lib.getName());//lib
             case 3:
-                return new File(StaticRes.MODS,lib.getName());//mod
+                return new File(Utils.MODS,lib.getName());//mod
         }
-        return new File(StaticRes.MINECRAFT,lib.getName());
+        return new File(Utils.MINECRAFT,lib.getName());
     }
     private void parseXML() throws Exception{
         DOMParser parser=new DOMParser();

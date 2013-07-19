@@ -258,7 +258,7 @@ public class ComponentMover extends MouseAdapter
 		if (changeCursor)
 		{
 			originalCursor = source.getCursor();
-			source.setCursor( Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR) );
+			//source.setCursor( Cursor.getPredefinedCursor(Cursor.MOVE_CURSOR) );
 		}
 
 		//  Making sure autoscrolls is false will allow for smoother dragging of
@@ -352,7 +352,7 @@ public class ComponentMover extends MouseAdapter
 		potentialDrag = false;
 
 		if (changeCursor)
-			source.setCursor( originalCursor );
+			//source.setCursor( originalCursor );
 
 		if (destination instanceof JComponent)
 		{

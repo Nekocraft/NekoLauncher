@@ -83,13 +83,13 @@ public class MulThreadDownloaderService {
     byte buffer[] = new byte[1024];
     int location = -1;
     int totalSize = 0;
-    
     while(totalSize <threadFileSize && (location = inputStream.read(buffer)) != -1){
      threadFile.write(buffer, 0, location);
      synchronized(LoginFrame.bar){
          LoginFrame.bar.setValue(LoginFrame.bar.getValue()+location);
      }
      totalSize = totalSize + location;
+     System.out.println(totalSize);
     }
     threadFile.close();
     inputStream.close();

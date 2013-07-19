@@ -11,7 +11,7 @@ import java.util.zip.*;
  *
  * @author gjz010
  */
-public class StaticRes {
+public class Utils {
     //A Slash after URL!
     public static final String NEKO="http://nekocraft.com/";
     public static final String NEWSFEED=NEKO+"feed/";
@@ -28,6 +28,7 @@ public class StaticRes {
     public static final File LIB=new File(".minecraft/bin/lib/");
     public static final File MODS=new File(".minecraft/mods/");
     public static final File USERDATA=new File(".minecraft/user.properties");
+    public static final File OPTIONS=new File(".minecraft/options.properties");
 //Link:http://www.javaer.org/java/1-zip/3-delete-zipentry-from-zip-file
     public static void deleteZipEntry(File zipFile,
              String[] files) throws IOException {

@@ -94,7 +94,7 @@ public class NekoNews {
     }
     public static List<NekoNews> fetchNews() throws Exception{
         List<NekoNews> news=new ArrayList<>();
-        String rss=HTMLFetcher.getHTML(StaticRes.NEWSFEED, "UTF-8");
+        String rss=HTMLFetcher.getHTML(Utils.NEWSFEED, "UTF-8");
             DOMParser parser=new DOMParser();
             parser.parse(new InputSource(new StringReader(rss)));
             Document doc=parser.getDocument();

@@ -20,15 +20,16 @@ public class LaunchThread extends Thread{
         //答：META-INF!
         //问：什么东西更揪心?
         //答：New MinecraftStructure!
-        File mc_ori=new File(StaticRes.BIN,"minecraft.jar");
-        File sc_ori=new File(StaticRes.BIN,"spoutcraft.jar");
-        File mc_nometa=new File(StaticRes.BIN,"minecraft-tmp.jar");
-        File sc_nometa=new File(StaticRes.BIN,"spoutcraft-tmp.jar");
-        LoginFrame.bar.setString("Copying minecraft.jar");
+        File mc_ori=new File(Utils.BIN,"minecraft.jar");
+        File sc_ori=new File(Utils.BIN,"spoutcraft.jar");
+        File mc_nometa=new File(Utils.BIN,"minecraft-tmp.jar");
+        File sc_nometa=new File(Utils.BIN,"spoutcraft-tmp.jar");
+        LoginFrame.bar.setString("正在复制minecraft.jar...");
         FileUtil.copyFile(mc_ori.getAbsolutePath(), mc_nometa.getAbsolutePath());
-        LoginFrame.bar.setString("Copying spoutcraft.jar");
+        LoginFrame.bar.setString("正在复制spoutcraft.jar...");
         FileUtil.copyFile(sc_ori.getAbsolutePath(), sc_nometa.getAbsolutePath());
         try{
+        LoginFrame.bar.setString("正在删除META-INF...");
         removeMeta(mc_nometa);
         removeMeta(sc_nometa);
         }
@@ -57,7 +58,7 @@ public class LaunchThread extends Thread{
     }
     private void setEnvironmentVariables(){
         Map<String,String> env=proc.environment();
-        proc.directory(StaticRes.BIN);
+        proc.directory(Utils.BIN);
         if(System.getProperty("os.name").replace(" ", "").toLowerCase().contains("win")){
             env.put("APPDATA", new File("").getAbsolutePath());
         }
@@ -69,7 +70,14 @@ public class LaunchThread extends Thread{
         }
     }
     private String buildCommand(){
-        StringBuilder command=new StringBuilder("java -Xmx1G -cp ");
+        StringBuilder command=new StringBuilder("\"");
+        NekoUser su=NekoLauncher.du;
+        command.append(new File(System.getProperty("java.home"),"bin/java.exe").getAbsolutePath());
+        command.append("\" -Xms");
+        command.append(su.getMinmem());
+        command.append("M -Xms");
+        command.append(su.getMaxmem());
+        command.append("M -cp ");
         for(Library l:mc.getLibs()){
             command.append("lib/");
             command.append(l.getName());
@@ -89,9 +97,10 @@ public class LaunchThread extends Thread{
         command.append(NekoLauncher.lt.getUser());
         command.append(" ");
         command.append(NekoLauncher.lt.getSession());
+        System.out.println(command.toString());
         return command.toString();
     }
     private void removeMeta(File f) throws Exception{ //META-INF什么的最讨厌了！
-        StaticRes.deleteZipEntry(f,new String[]{"META-INF/MOJANG_C.SF","META-INF/MOJANG_C.DSA","META-INF/MANIFEST.MF","META-INF/maven/org.spoutcraft/spoutcraft/pom.xml","META-INF/maven/org.spoutcraft/spoutcraft/pom.properties"});
+        Utils.deleteZipEntry(f,new String[]{"META-INF/MOJANG_C.SF","META-INF/MOJANG_C.DSA","META-INF/MANIFEST.MF","META-INF/maven/org.spoutcraft/spoutcraft/pom.xml","META-INF/maven/org.spoutcraft/spoutcraft/pom.properties"});
     }
 }

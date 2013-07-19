@@ -19,7 +19,7 @@ public class LoginThread extends Thread{
     public void run() {
         LoginFrame.bar.setString("登录中...");
         try{
-            u=new URL(StaticRes.API);
+            u=new URL(Utils.API);
             con = (HttpURLConnection) u.openConnection();
             con.setRequestMethod("POST");
             con.setDoOutput(true);
@@ -38,7 +38,7 @@ public class LoginThread extends Thread{
             if (session==null){
                 throw new LoginFailedException();
             }
-            user.saveUser(StaticRes.USERDATA,LoginFrame.savepwd.isSelected());
+            user.saveUser(Utils.USERDATA,LoginFrame.savepwd.isSelected());
             NekoLauncher.dt=new DownloadThread();
             NekoLauncher.dt.start();
         }

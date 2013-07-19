@@ -13,6 +13,8 @@ import java.util.logging.Logger;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 
 public class NekoLauncher{
     public static LoginFrame mf;
@@ -23,25 +25,25 @@ public class NekoLauncher{
     public static LoginThread lt;
     public static DownloadThread dt;
     public static NekoUser du;
+    public static String[] runargs;
     public NekoLauncher(){
     }
     public static void init(){
       try{
-        NekoLauncher.initDir(StaticRes.MINECRAFT);
-        NekoLauncher.initDir(StaticRes.BIN);
-        NekoLauncher.initDir(StaticRes.LIB);
-        NekoLauncher.initDir(StaticRes.NATIVES);
-        NekoLauncher.initDir(StaticRes.MODS);
+        NekoLauncher.initDir(Utils.MINECRAFT);
+        NekoLauncher.initDir(Utils.BIN);
+        NekoLauncher.initDir(Utils.LIB);
+        NekoLauncher.initDir(Utils.NATIVES);
+        NekoLauncher.initDir(Utils.MODS);
         if(!new File(".minecraft/options.txt").exists()){
         FileUtil.createFile(new File(".minecraft/options.txt").getAbsolutePath(),"lang:zh_CN");
         }
-        du=new NekoUser();
-        if(!StaticRes.USERDATA.exists()){
-        du.setUsername("");
-        du.setPassword("");
-        du.saveUser(StaticRes.USERDATA,false);
+        if(!Utils.USERDATA.exists()){
+        FileUtil.createFile(Utils.USERDATA.getAbsolutePath(),"");
         }
-        du.loadUser(StaticRes.USERDATA);
+        du=new NekoUser();
+        du.loadUser(Utils.USERDATA);
+        du.saveUser(Utils.USERDATA,true);
         }
         catch(Exception ex){
             NekoLauncher.handleException(ex);
@@ -50,6 +52,16 @@ public class NekoLauncher{
     public static void main(String[] args){
         System.out.println("Woo Nekocraft Launcher!");
         init();
+            String laf = UIManager.getSystemLookAndFeelClassName();
+            System.out.println(laf);
+    try {
+         UIManager.setLookAndFeel(laf);
+    } catch (UnsupportedLookAndFeelException exc) {
+     System.err.println("Warning: UnsupportedLookAndFeel: " + laf);
+    } catch (Exception exc) {
+     System.err.println("Error loading " + laf + ": " + exc);
+    }
+        runargs=args;
         mf=new LoginFrame();
     }
     private static JDialog exFrame;
@@ -71,12 +83,21 @@ public class NekoLauncher{
         exFrame.setSize(new Dimension(400, 500)); 
         Random random = new Random();//我会说这里有个彩蛋吗
         int r=random.nextInt(10);
-        if(r==2){
-            exFrame.setTitle("Yooooooooo!You sold your soul to Lucifer!");
+        switch(r){
+            case 2:
+                exFrame.setTitle("Yooooooooo!You sold your soul to Lucifer!");
+                break;
+            case 3:
+                exFrame.setTitle("Threeeeeee!You sold your soul to Lucifer!");
+                break;
+            case 5:
+                exFrame.setTitle("Aieeeeeeee!Something went wrong!");
+                break;
+            default:
+                exFrame.setTitle("Whoooooops!Something went wrong!");
+                break;
         }
-        else{
-            exFrame.setTitle("Whoooooops!Something went wrong!");
-        }
+        //好吧我有点过于无聊了
         exFrame.setResizable(false); 
         exFrame.setLocationRelativeTo(exFrame.getOwner());
         exFrame.addWindowListener(new WindowAdapter(){
@@ -111,5 +132,4 @@ public class NekoLauncher{
             System.out.println("Mkdir:"+dir.getName()+" "+dir.mkdir());
         }
     }
-    
 }
