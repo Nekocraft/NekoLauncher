@@ -2,10 +2,12 @@
  * This File is a part of NekoLauncher
  * of Nekocraft
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 
 import java.io.*;
 import java.util.*;
+
+import com.nekocraft.launcher.LoginFrame;
 
 public class FileUtil{
    

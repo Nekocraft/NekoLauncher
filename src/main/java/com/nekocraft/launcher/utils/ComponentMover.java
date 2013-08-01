@@ -1,5 +1,5 @@
 //Link:http://www.camick.com/java/source/ComponentMover.java
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 
 import java.awt.*;
 import java.awt.event.*;

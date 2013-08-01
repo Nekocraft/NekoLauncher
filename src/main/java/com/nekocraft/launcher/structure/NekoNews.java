@@ -2,12 +2,16 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.structure;
 
+import com.nekocraft.launcher.utils.HTMLFetcher;
+import com.nekocraft.launcher.utils.Utils;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+
 import java.io.StringReader;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;

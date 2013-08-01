@@ -10,11 +10,19 @@ import java.net.URL;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
+
+import com.nekocraft.launcher.structure.NekoUser;
+import com.nekocraft.launcher.utils.FileUtil;
+import com.nekocraft.launcher.utils.Utils;
+import com.nekocraft.launcher.worker.DownloadThread;
+import com.nekocraft.launcher.worker.LaunchThread;
+import com.nekocraft.launcher.worker.LoginThread;
 
 public class NekoLauncher{
     public static LoginFrame mf;

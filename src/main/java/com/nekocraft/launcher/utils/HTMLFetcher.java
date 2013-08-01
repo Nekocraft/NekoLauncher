@@ -1,9 +1,11 @@
 //Link:http://gaofeihang.blog.163.com/blog/static/845082852010315103625825/
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 import java.io.BufferedReader; 
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+
+import com.nekocraft.launcher.NekoLauncher;
 
 public class HTMLFetcher {
     public static String getHTML(String pageURL, String encoding) {

@@ -6,6 +6,9 @@ package com.nekocraft.launcher;
 
 import javax.swing.*;
 
+import com.nekocraft.launcher.structure.NekoUser;
+import com.nekocraft.launcher.utils.Utils;
+
 /**
  *
  * @author Administrator

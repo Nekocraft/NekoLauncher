@@ -2,9 +2,12 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.structure;
 
+import com.nekocraft.launcher.NekoLauncher;
+import com.nekocraft.launcher.utils.Base64Utils;
 import com.sun.servicetag.SystemEnvironment;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileInputStream;
@@ -17,6 +20,7 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.imageio.ImageIO;
 
 /**

@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 
 import com.sun.awt.AWTUtilities;
 import java.awt.BorderLayout;

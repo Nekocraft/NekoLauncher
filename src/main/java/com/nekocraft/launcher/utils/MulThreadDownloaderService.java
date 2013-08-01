@@ -1,5 +1,5 @@
 //Link:http://blog.csdn.net/wangweijun125455/article/details/6070277
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 /*
   * java 多线程下载
   */
@@ -11,6 +11,8 @@ import java.io.RandomAccessFile;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import com.nekocraft.launcher.LoginFrame;
 public class MulThreadDownloaderService {
  /*
   * urlStr 资源地址

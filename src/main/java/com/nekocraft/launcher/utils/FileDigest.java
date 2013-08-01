@@ -1,5 +1,5 @@
 //Link:http://hi.baidu.com/ylcstrive_2009/item/0a3b930be2a87f37a2332a5d
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 import java.io.File;
 import java.io.FileInputStream;
 import java.math.BigInteger;

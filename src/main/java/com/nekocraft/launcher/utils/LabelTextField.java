@@ -2,7 +2,7 @@
  * This File is a part of NekoLauncher
  * of Nekocraft
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.utils;
 
 import javax.swing.*;
 

@@ -2,10 +2,17 @@
  * This File is a part of NekoLauncher
  * of Nekocraft
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.worker;
 import java.io.*;
 import java.net.*;
+
 import javax.swing.JOptionPane;
+
+import com.nekocraft.launcher.LoginFailedException;
+import com.nekocraft.launcher.LoginFrame;
+import com.nekocraft.launcher.NekoLauncher;
+import com.nekocraft.launcher.structure.NekoUser;
+import com.nekocraft.launcher.utils.Utils;
 /**
  *
  * @author Administrator

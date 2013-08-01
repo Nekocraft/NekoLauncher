@@ -2,9 +2,19 @@
  * This File is a part of NekoLauncher
  * of Nekocraft
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.worker;
 
+import com.nekocraft.launcher.LoginFrame;
+import com.nekocraft.launcher.NekoLauncher;
+import com.nekocraft.launcher.structure.Library;
+import com.nekocraft.launcher.structure.MinecraftStructure;
+import com.nekocraft.launcher.structure.Mirror;
+import com.nekocraft.launcher.utils.FileDigest;
+import com.nekocraft.launcher.utils.HTMLFetcher;
+import com.nekocraft.launcher.utils.MulThreadDownloaderService;
+import com.nekocraft.launcher.utils.Utils;
 import com.sun.org.apache.xerces.internal.parsers.DOMParser;
+
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -13,6 +23,7 @@ import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.zip.*;
+
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.InputSource;

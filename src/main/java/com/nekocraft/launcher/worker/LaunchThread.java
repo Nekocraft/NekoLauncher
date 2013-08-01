@@ -2,10 +2,18 @@
  * This File is a part of NekoLauncher
  * of Nekocraft
  */
-package com.nekocraft.launcher;
+package com.nekocraft.launcher.worker;
 
 import java.io.File;
 import java.util.*;
+
+import com.nekocraft.launcher.LoginFrame;
+import com.nekocraft.launcher.NekoLauncher;
+import com.nekocraft.launcher.structure.Library;
+import com.nekocraft.launcher.structure.MinecraftStructure;
+import com.nekocraft.launcher.structure.NekoUser;
+import com.nekocraft.launcher.utils.FileUtil;
+import com.nekocraft.launcher.utils.Utils;
 
 /**
  *

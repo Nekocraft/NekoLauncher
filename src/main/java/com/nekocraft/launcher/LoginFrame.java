@@ -1,11 +1,17 @@
 package com.nekocraft.launcher;
+import com.nekocraft.launcher.structure.NekoNews;
+import com.nekocraft.launcher.structure.NekoUser;
+import com.nekocraft.launcher.utils.TransparentFrame;
+import com.nekocraft.launcher.worker.LoginThread;
 import com.sun.awt.AWTUtilities;
+
 import java.awt.*;  
 import java.awt.event.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;  
 //import javax.swing.text.html.StyleSheet;
